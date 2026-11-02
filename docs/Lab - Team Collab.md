@@ -28,15 +28,15 @@ Keep the role labels A/B/C and the supplied filenames and branch names unchanged
 | 6. Conflict preparation | All features merged; all agree on same main SHA; B/C create competing branches | A must wait until **both branches/PRs exist** |
 | 7. Conflict resolution | A reviews/merges B's conflict PR first | C waits for that merge, then fetches main, captures actual conflict, resolves and pushes |
 | 8. Resolution review | B reviews/merges C's repaired PR after green checks | All wait for resolution merge before final Docker verification |
-| 9. Verification | Each pulls main, runs full checks and live Docker demonstration | Each submits their own evidence via reviewed PR |
-| 10. Submission | All three evidence PRs merged | Each pulls final main and submits final SHA, green run, repository and own evidence link |
+| 9. Verification | Each pulls main, runs full checks and live Docker demonstration | Instructor checks the running app and individual understanding |
+| 10. Submission | Each student sends a short Teams message | Name/GitHub, repository, feature PR, review link, and 1–2 contribution sentences |
 
-Keep your teammates informed at each handoff using your team's normal communication channel or PR/issue discussion. A “WAIT FOR” step in your guide is a required dependency, not permission to skip the later task. While waiting, complete independent setup, review available work, or record evidence.
+Keep your teammates informed at each handoff using your team's normal communication channel or PR/issue discussion. A “WAIT FOR” step in your guide is a required dependency, not permission to skip the later task. While waiting, complete independent setup, review available work, or inspect available PRs.
 
 ## Shared rules
 
 - The starter import is the only direct push to main. All later changes enter main through reviewed PRs with green checks. Use your own account and named branches.
-- Review rotation for features/evidence: A reviews B, B reviews C, C reviews A. Workflow: B reviews A. Conflict: A reviews B; B reviews C.
+- Review rotation for features: A reviews B, B reviews C, C reviews A. Workflow: B reviews A. Conflict: A reviews B; B reviews C.
 - The reviewer merges using **Create a merge commit**. Preserve deliberate-failure, repair, and conflict-resolution history.
 - Everyone applies and explains their own supplied application change/tests, gives a substantive review, participates in CI/conflict evidence, and verifies the final app on their own computer.
 - Never commit .env, credentials, or node_modules. Do not weaken tests to get green.
@@ -48,9 +48,8 @@ Expected integrated checks with the supplied code: **18 backend tests, 5 fronten
 
 One team repository, three feature PRs with substantive reviews, a PR-triggered Compose workflow, visible failed/repaired runs on A's PR, two competing conflict PRs with an actual conflict capture and resolution, and live final Docker demonstrations.
 
-Each student creates their own evidence document through a reviewed PR:
-- A: `docs/team-collab-evidence-A.md`
-- B: `docs/team-collab-evidence-B.md`
-- C: `docs/team-collab-evidence-C.md`
+Each student sends a short Teams message with their name/GitHub username, repository URL, feature PR URL, review URL, and 1–2 sentences about their contribution. No separate evidence files or evidence PRs are required.
 
-Templates and exact submission steps are in the member guides. Submit links on Teams and make sure instructor `chakirouAlabani` has repository access.
+Shared proof stays in the existing PRs: A posts the failed/passing run links in A's feature PR; C posts one actual conflict capture in C's conflict PR. Each student's required short review/CI/conflict comments remain there too. Do not duplicate screenshots, logs, or commit SHAs in a report.
+
+The instructor grades directly from the repository and each student's live demonstration. Make sure instructor `chakirouAlabani` has repository access.
