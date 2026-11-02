@@ -26,11 +26,11 @@ git config --global user.email "YOUR GITHUB EMAIL"
 | Add workflow | Your local baseline is green | B can review workflow; C can inspect run |
 | Start feature | B merges workflow | Your feature PR is ready for C |
 | Fail/repair test | First green feature run | B can explain failure; C can verify cleanup |
-| Feature merge | B/C evidence and C's final approval | C may merge your repaired PR |
+| Feature merge | B/C PR comments and C's final approval | C may merge your repaired PR |
 | Review B | B opens feature PR | B's feature is merged |
 | Coordinate conflict | All three features merged | Common SHA recorded; both branches created |
 | Merge B conflict | C confirms branch already exists | C may merge main into their branch |
-| Final verification | B merges C resolution | Final Docker results and evidence ready |
+| Final verification | B merges C resolution | Final Docker demonstration ready |
 
 ## Checkpoint 1 — Create the shared team repository
 
@@ -59,7 +59,7 @@ git remote -v
 
 The owner stays in the imported project folder. Everyone's origin URL must identify the same team repository. From now on, all three work in clones of that same remote.
 
-**Checkpoint evidence:** shared repository URL, roster, and accepted collaborator access. The initial starter import is the only direct push to main allowed in this lab.
+**Check:** teammates accepted access and the instructor received the repository link. The initial starter import is the only direct push to main allowed in this lab.
 
 ## Rules for every PR
 
@@ -105,11 +105,11 @@ docker compose -f compose.test.yaml down --volumes
 
 Expected baseline: **5 backend tests, 2 frontend tests**, successful lint and type checking. The Compose test configuration supplies a temporary MongoDB named `mern_notes_test`; you do not need database secrets. Do not redirect the tests to your application database: the API suite deletes collections.
 
-**Checkpoint evidence:** record your own baseline results. If something fails, inspect the first failure and fix your setup before adding features. Rebuild test images after code/test edits: these images contain copied source.
+**Expected:** the starter checks pass. No written baseline report is required. If something fails, inspect the first failure and fix your setup before adding features. Rebuild test images after code/test edits: these images contain copied source.
 
 ## Checkpoint 3 — Add PR-triggered automated checks
 
-Student A authors `a/pr-checks`; Student B reviews and merges it. Student C inspects the run and records what each service checks.
+Student A authors `a/pr-checks`; Student B reviews and merges it. Student C inspects the run and posts one short service explanation in the PR.
 
 First create the branch locally:
 
@@ -176,7 +176,7 @@ git push -u origin a/pr-checks
 
 Open **Pull requests → New pull request**, select base **main** and compare **a/pr-checks**, and create the PR. Request B as reviewer. Use the PR procedure at the end of this guide for this PR too. Confirm checks run **before merge** and all seven starter tests pass. Review and merge it before opening the feature PRs. The push trigger also verifies integrated main. If an inherited workflow exists, inspect its triggers; do not add publishing to this lab or confuse a publishing run with these required tests.
 
-**Checkpoint evidence:** workflow PR, substantive review, and green PR run. After its first successful run, configure the main rule to require this workflow's `tests` check. Do not require a check before it exists.
+**Check:** the workflow PR has a substantive review and a green run. After its first successful run, configure the main rule to require this workflow's `tests` check. Do not require a check before it exists.
 
 
 **WAIT FOR B:** do not merge your own workflow. C must also inspect the run. Once B merges it, add the required tests check to main's rule where available; record any plan limitation.
@@ -363,8 +363,8 @@ git push
 git rev-parse HEAD
 ```
 
-Copy the printed SHA as the failing commit.
-4. Open the PR check details. Confirm the backend assertion fails, later normal steps are skipped, and cleanup still runs. Keep the failed run URL and failing commit SHA. Do not merge.
+The commit SHA is available in the PR history; no separate record is required.
+4. Open the PR check details. Confirm the backend assertion fails, later normal steps are skipped, and cleanup still runs. Link the failed run in this PR. Do not merge.
 5. Restore the health test to this complete block (replace only the health test, not the file):
 
 ```ts
@@ -383,18 +383,18 @@ git push
 git rev-parse HEAD
 ```
 
-Keep the passing run URL and repaired commit SHA. Expected: 18 backend tests pass again. A red run remains in the run history; the latest PR check must now be green.
+Link the passing run alongside the failed run in this PR. Expected: 18 backend tests pass again. A red run remains in the run history; the latest PR check must now be green.
 6. Student B comments with the assertion's expected/actual difference and why the PR was blocked. Student C verifies cleanup in the failed run and confirms the repaired run passes. Student A explains the repair in the PR.
 7. Ask C for final approval and a GitHub merge. Do not merge your own PR.
 
-**Checkpoint evidence:** one PR with separate visible failing and repaired commits/runs, and named explanations from all three students. Keep both commits; do not squash away or rewrite the demonstration history. A syntax error or intentionally disabled workflow is not a substitute for a failing assertion.
+**Check:** one PR contains the failing and repaired runs, plus one short comment from each student about their role. Keep both commits; do not squash away or rewrite the demonstration history. A syntax error or intentionally disabled workflow is not a substitute for a failing assertion.
 
 
 **WAIT FOR B AND C:** B must explain expected versus actual on the failing run; C must confirm failed-run cleanup and repaired-run success. C then reviews your latest revision and merges. Do not merge your own feature.
 
 ### Your review of B's feature
 
-**WAIT FOR B:** B sends the PR **Explain signup and login**. Read the component and its test. Check that the heading is “Your notes, together”, both navigation choices are explained, and sign-in is required to view notes. Use the review procedure at the end. Request fixes if needed; approve and merge only when green. Save your substantive review link.
+**WAIT FOR B:** B sends the PR **Explain signup and login**. Read the component and its test. Check that the heading is “Your notes, together”, both navigation choices are explained, and sign-in is required to view notes. Use the review procedure at the end. Request fixes if needed; approve and merge only when green. Use this review link in your short Teams submission.
 
 ## Checkpoint 6 — Coordinate and review the conflict
 
@@ -418,11 +418,11 @@ Create the issue **Planned login guidance conflict** and record the common base 
 3. Tell C: “B's conflict PR is merged. Fetch main and resolve on c/guidance-heading.”
 4. **WAIT FOR C:** ask C for the actual conflict capture before resolution. A report of an automatic merge is insufficient; B/C must repeat from a common base with competing edits to the exact same line if no conflict occurs.
 5. **WAIT FOR B:** B reviews and merges C's repaired PR. Pull main and inspect the final heading **Your team's notes, organized**, preserved paragraphs, matching test, and green push run.
-6. Record why B's earlier merge made C's branch conflict. Link the base SHA, both PRs, capture, resolution commit, and your review.
+6. Add one short comment to the conflict issue explaining why merge order caused the conflict. Do not create a separate report.
 
 ## Checkpoint 7 — Verify the final main in Docker
 
-Every student pulls the merged main and records the same final commit SHA:
+Every student pulls the merged main. Show its commit SHA during the live demonstration; no separate written record is required:
 
 ```sh
 git switch main
@@ -453,58 +453,26 @@ Do not use `--volumes` on the application stack during the persistence check: it
 
 **Final checkpoint:** call the instructor for a live demonstration before stopping the app. Each student must explain their code/test, their review, and one collaboration event. Show the final main SHA, green checks, containers, and working app. Then use `docker compose down` to stop the application.
 
-## Submit your individual evidence
+## Submit — Short individual message
 
-**WAIT FOR:** C's conflict-resolution PR must be merged and final main checks must pass. Create your own evidence file so each student's contribution is attributable and separate.
+After the final Docker demonstration, send this short message on Teams. Replace the placeholders:
 
-```sh
-git switch main
-git pull --ff-only origin main
-git switch -c a/evidence
+```text
+Name / GitHub: YOUR NAME / @USERNAME
+Team repository: URL
+My feature PR: URL
+My review of a teammate: URL
+My contribution: 1–2 sentences about what I changed and learned.
 ```
 
-Create `docs/team-collab-evidence-A.md`. Copy this template and replace every placeholder with actual results and links:
+No separate evidence document, evidence branch, or evidence PR is required. Your instructor grades the code, commits, reviews, Actions history, and conflict discussion directly in the team repository, plus your live demonstration.
 
-```md
-# Student A — Team collaboration evidence
-
-- Name / GitHub username: NAME / USERNAME
-- My guide-confirmation commit / feature PR: SHA / URL
-- Team repository and roster A/B/C: URL_AND_NAMES
-- Accepted collaborator / instructor access: DETAILS
-- Main protection or manual-enforcement limitation: DETAILS
-- Local baseline results: RESULTS
-- My task issue / feature PR / code and test commits: URLS
-- What my supplied code and tests do: MY_EXPLANATION
-- My review of a teammate's feature: REVIEW_URL_AND_WHAT_I_CHECKED
-- Workflow PR / green run and my role: URLS_AND_EXPLANATION
-- Failed run / failing commit: URL / SHA
-- Repaired run / repaired commit: URL / SHA
-- My red-to-green contribution and explanation: DETAILS
-- Conflict issue / common base SHA / both PRs: URLS_AND_SHA
-- Actual conflict capture / resolution commit / green run: LINKS_AND_SHA
-- My conflict contribution and explanation: DETAILS
-- Final verified application SHA: SHA
-- Final local backend/frontend totals, lint, typecheck: RESULTS
-- Final Docker / keyboard / CRUD / isolation / persistence checks: RESULTS
-- Live demonstration: DATE_AND_RESULT
-```
-
-Then run:
-```sh
-git add docs/team-collab-evidence-A.md
-git commit -m "docs: record Student A lab evidence"
-git push -u origin a/evidence
-```
-
-Open a PR against main. Request C to review and merge after green checks. Review the evidence PR assigned to you too. Each student submits the repository link and their own evidence-file link on Teams.
-
-**WAIT FOR ALL THREE EVIDENCE PRs:** after they merge, pull main again and submit the final main SHA plus green push-run URL on Teams. No extra commit is needed just to insert a commit's own SHA. If code, tests, or workflow changed since your Docker verification, repeat the checks on the final revision.
+Keep shared proof in its original location only: A links the failed and passing runs in A's feature PR; C adds one actual conflict capture to C's conflict PR. Teammates add their required short comments there. You do not need to duplicate screenshots, commit SHAs, logs, or explanations in another report.
 
 ### Open, review, and merge each PR on GitHub
 
 1. Open the **team repository → Pull requests → New pull request**.
-2. Select **base: main** and **compare: your branch**. Inspect **Files changed**; your feature PR should contain your assigned code/tests and your own guide confirmation. The initial workflow PR contains the workflow YAML. Later conflict/evidence PRs contain only their stated files.
+2. Select **base: main** and **compare: your branch**. Inspect **Files changed**; your feature PR should contain your assigned code/tests and your own guide confirmation. The initial workflow PR contains the workflow YAML. Later conflict PRs contain only their stated files.
 3. Choose **Create pull request**. Use your commit message as its title. Copy this body, replacing the capitalized placeholders:
 
 ```md
@@ -521,7 +489,7 @@ ONE_SPECIFIC_THING_FOR_THE_REVIEWER_TO_CHECK
 ```
 
 
-4. Under **Reviewers**, request C for your feature PR; B for your workflow PR. In **Checks**, open **Team collaboration checks → tests** and inspect individual steps. Save the run URL.
+4. Under **Reviewers**, request C for your feature PR; B for your workflow PR. In **Checks**, open **Team collaboration checks → tests** and inspect individual steps. The run stays attached to the PR; no separate copy is needed.
 5. Reviewer: open **Files changed**, select a line's **+** button, and leave a specific comment explaining a checked behavior or a needed correction. Use **Review changes → Request changes** for a required fix. Do not copy a review claim without checking it.
 6. Author: make requested edits on the same branch, rebuild/retest, commit the changed files, and `git push`. The existing PR updates automatically. Reply to the review with what changed.
 7. Reviewer: inspect the latest revision and results, resolve addressed discussions, and use **Review changes → Approve**.
@@ -532,7 +500,7 @@ ONE_SPECIFIC_THING_FOR_THE_REVIEWER_TO_CHECK
 
 ## Individual grading — /10 per student
 
-Team membership alone does not earn credit. The instructor grades each student using their own GitHub activity, evidence document, and demonstration. Shared artifacts count only when your contribution is identifiable.
+Team membership alone does not earn credit. The instructor grades each student using their own GitHub activity, short submission, and demonstration. Shared artifacts count only when your contribution is identifiable.
 
 | Criterion | Points | Individually observable evidence |
 | --- | ---: | --- |
@@ -541,7 +509,7 @@ Team membership alone does not earn credit. The instructor grades each student u
 | Meaningful automated tests | 2 | Authored tests cover required cases, pass in Compose/CI, and would catch a regression |
 | Review and integration | 2 | Substantive review of a teammate's PR, verified fixes/approval, and compliant merge participation |
 | CI failure and conflict understanding | 2 | 1 point: named red/green contribution and explanation; 1 point: named real-conflict contribution and explanation |
-| Final Docker verification and evidence | 1 | Own final-main checks, working live demonstration, complete traceable evidence |
+| Final Docker verification and submission | 1 | Own final-main checks, working live demonstration, short submission with working PR links |
 | **Total** | **10** | **Assessed separately for A, B, and C** |
 
 Partial credit follows demonstrated completion within each criterion. Missing or unattributable work earns no credit for that part. A teammate's successful implementation cannot replace your own code, tests, review, or explanation.
