@@ -1,16 +1,16 @@
-# Lab — Team Collab — Student {{MEMBER_A}} (A)
-**Assigned student:** {{MEMBER_A}} · **GitHub:** @{{GITHUB_A}} · **Role:** A
+# Lab — Team Collab — Student A
+**Assigned student:** YOUR FULL NAME · **GitHub:** @YOUR_GITHUB_USERNAME · **Role:** A
 
 **Personal confirmation:** NOT YET CONFIRMED — replace this entire value yourself in your feature PR.
 
 
 **420-530-LE · Team of three · Your individual grade: /10**
 
-Follow the checkpoints in order, and perform review/handoff requests as soon as a teammate is ready—even if their request appears later in this guide. Do not make everyone wait until you finish your own feature before reviewing theirs. This guide includes your supplied code, tests, reviews, dependencies, and final verification. Other members use [Student {{MEMBER_B}} (B)](Lab%20-%20Team%20Collab%20-%20Student%20B.md) and [Student {{MEMBER_C}} (C)](Lab%20-%20Team%20Collab%20-%20Student%20C.md). See the [team overview](Lab%20-%20Team%20Collab.md) for the complete handoff order.
+Follow the checkpoints in order, and perform review/handoff requests as soon as a teammate is ready—even if their request appears later in this guide. Do not make everyone wait until you finish your own feature before reviewing theirs. This guide includes your supplied code, tests, reviews, dependencies, and final verification. Other members use [Student B](Lab%20-%20Team%20Collab%20-%20Student%20B.md) and [Student C](Lab%20-%20Team%20Collab%20-%20Student%20C.md). See the [team overview](Lab%20-%20Team%20Collab.md) for the complete handoff order.
 
 Use your own GitHub account. Run commands locally from your project root, except workflow YAML which runs on GitHub. Replace explicit uppercase placeholders only. Copy supplied code into the exact stated locations; understand it and be ready to explain it. No GHCR publication or online deployment is required.
 
-Before starting, agree who is {{MEMBER_A}} (A), {{MEMBER_B}} (B), and {{MEMBER_C}} (C). **{{MEMBER_A}} (A) owns the new team repository.** Everyone must personally apply their assigned code and tests, review teammates, and verify Docker. Your grade depends on attributable activity and explanations, even though code is supplied.
+Before starting, agree who is A, B, and C. **A owns the new team repository.** Everyone must personally apply their assigned code and tests, review teammates, and verify Docker. Your grade depends on attributable activity and explanations, even though code is supplied.
 
 Configure your identity once:
 ```sh
@@ -23,14 +23,14 @@ git config --global user.email "YOUR GITHUB EMAIL"
 | Your step | Wait for | Tell the team when |
 | --- | --- | --- |
 | Import starter | Role agreement | Repository URL and invitations are ready |
-| Add workflow | Your local baseline is green | {{MEMBER_B}} (B) can review workflow; {{MEMBER_C}} (C) can inspect run |
-| Start feature | {{MEMBER_B}} (B) merges workflow | Your feature PR is ready for {{MEMBER_C}} (C) |
-| Fail/repair test | First green feature run | {{MEMBER_B}} (B) can explain failure; {{MEMBER_C}} (C) can verify cleanup |
-| Feature merge | {{MEMBER_B}} (B)/{{MEMBER_C}} (C) evidence and {{MEMBER_C}} (C)'s final approval | {{MEMBER_C}} (C) may merge your repaired PR |
-| Review {{MEMBER_B}} (B) | {{MEMBER_B}} (B) opens feature PR | {{MEMBER_B}} (B)'s feature is merged |
+| Add workflow | Your local baseline is green | B can review workflow; C can inspect run |
+| Start feature | B merges workflow | Your feature PR is ready for C |
+| Fail/repair test | First green feature run | B can explain failure; C can verify cleanup |
+| Feature merge | B/C evidence and C's final approval | C may merge your repaired PR |
+| Review B | B opens feature PR | B's feature is merged |
 | Coordinate conflict | All three features merged | Common SHA recorded; both branches created |
-| Merge {{MEMBER_B}} (B) conflict | {{MEMBER_C}} (C) confirms branch already exists | {{MEMBER_C}} (C) may merge main into their branch |
-| Final verification | {{MEMBER_B}} (B) merges {{MEMBER_C}} (C) resolution | Final Docker results and evidence ready |
+| Merge B conflict | C confirms branch already exists | C may merge main into their branch |
+| Final verification | B merges C resolution | Final Docker results and evidence ready |
 
 ## Checkpoint 1 — Create the shared team repository
 
@@ -65,7 +65,7 @@ The owner stays in the imported project folder. Everyone's origin URL must ident
 
 - Start your own named branch from current main, e.g. `a/title-validation`, `b/login-guidance`, or `c/delete-button`. Do not share feature branches.
 - Push your branch and open a PR **targeting main**. Changes enter main only through reviewed GitHub PR merges. Never push commits directly to main, force-push main, or merge locally and push main.
-- The author requests a teammate's review. Rotate: {{MEMBER_A}} (A) reviews {{MEMBER_B}} (B), {{MEMBER_B}} (B) reviews {{MEMBER_C}} (C), {{MEMBER_C}} (C) reviews {{MEMBER_A}} (A). A reviewer reads the diff, checks acceptance criteria and tests, and leaves a specific observation. “Looks good” alone is insufficient.
+- The author requests a teammate's review. Rotate: A reviews B, B reviews C, C reviews A. A reviewer reads the diff, checks acceptance criteria and tests, and leaves a specific observation. “Looks good” alone is insufficient.
 - The author addresses review comments; the reviewer approves the final revision. The reviewer, rather than the author, merges after approval and green checks. If new commits invalidate the review, review again.
 - Updating your feature branch by merging `origin/main` into it is allowed. That does not put changes into main.
 - The repository owner configures a main branch rule requiring a PR, one approval, resolved conversations, and the test check where available. Add the required check after its first successful run. If your repository plan cannot enforce a setting, record that limitation and follow the same rules manually. Do not bypass them.
@@ -73,7 +73,7 @@ The owner stays in the imported project folder. Everyone's origin URL must ident
 
 Complete your own baseline before anyone merges features. Respond to review requests as soon as they arrive, even if you are still working on your feature.
 
-Use the exact branch and staging commands in your own task below. The starter import by {{MEMBER_A}} (A) is the only direct push to main.
+Use the exact branch and staging commands in your own task below. The starter import by A is the only direct push to main.
 
 ## Checkpoint 2 — Establish the baseline
 
@@ -109,7 +109,7 @@ Expected baseline: **5 backend tests, 2 frontend tests**, successful lint and ty
 
 ## Checkpoint 3 — Add PR-triggered automated checks
 
-Student {{MEMBER_A}} (A) authors `a/pr-checks`; Student {{MEMBER_B}} (B) reviews and merges it. Student {{MEMBER_C}} (C) inspects the run and records what each service checks.
+Student A authors `a/pr-checks`; Student B reviews and merges it. Student C inspects the run and records what each service checks.
 
 First create the branch locally:
 
@@ -118,8 +118,6 @@ git switch main
 git pull --ff-only origin main
 git switch -c a/pr-checks
 ```
-
-**Before creating the workflow:** follow **Fill the names once in the team repository** in the [overview](Lab%20-%20Team%20Collab.md). Set all three full names and GitHub usernames, run the supplied PowerShell block, and stage the four personalized documents. Keep working on this same branch; the name edits and YAML go into one workflow PR.
 
 **WAIT FOR BOTH TEAMMATES:** confirm they completed the starter baseline before merging any features. The workflow PR itself should still run the seven starter tests.
 
@@ -176,21 +174,21 @@ git commit -m "ci: run Compose checks on pull requests"
 git push -u origin a/pr-checks
 ```
 
-Open **Pull requests → New pull request**, select base **main** and compare **a/pr-checks**, and create the PR. Request {{MEMBER_B}} (B) as reviewer. Use the PR procedure at the end of this guide for this PR too. Confirm checks run **before merge** and all seven starter tests pass. Review and merge it before opening the feature PRs. The push trigger also verifies integrated main. If an inherited workflow exists, inspect its triggers; do not add publishing to this lab or confuse a publishing run with these required tests.
+Open **Pull requests → New pull request**, select base **main** and compare **a/pr-checks**, and create the PR. Request B as reviewer. Use the PR procedure at the end of this guide for this PR too. Confirm checks run **before merge** and all seven starter tests pass. Review and merge it before opening the feature PRs. The push trigger also verifies integrated main. If an inherited workflow exists, inspect its triggers; do not add publishing to this lab or confuse a publishing run with these required tests.
 
 **Checkpoint evidence:** workflow PR, substantive review, and green PR run. After its first successful run, configure the main rule to require this workflow's `tests` check. Do not require a check before it exists.
 
 
-**WAIT FOR {{MEMBER_B}} (B):** do not merge your own workflow. {{MEMBER_C}} (C) must also inspect the run. Once {{MEMBER_B}} (B) merges it, add the required tests check to main's rule where available; record any plan limitation.
+**WAIT FOR B:** do not merge your own workflow. C must also inspect the run. Once B merges it, add the required tests check to main's rule where available; record any plan limitation.
 
 ## Checkpoint 4 — Your code task
 
 ### Put your own name in this guide
 
-**WAIT FOR:** the workflow PR is merged and the assigned-student field at the top has your correct name. If it is still a placeholder, ask the repository owner to complete the name-setup step in the overview.
+**WAIT FOR:** the workflow PR is merged. After creating your feature branch below, fill your own name and GitHub username in this guide.
 
 On the feature branch you create below, edit the top of **this guide in your team's repository**:
-- Check that **Assigned student** and **GitHub** identify you; correct them if needed.
+- Replace **Assigned student** and **GitHub** with your full name and GitHub username.
 - Replace **Personal confirmation** with your own full name and GitHub username, for example `Sam Lee (@samlee) — I accept this role`. Use your actual identity.
 - Commit this change yourself, together with your application code and tests. Do not confirm a teammate's guide for them.
 
@@ -200,9 +198,9 @@ Your feature PR must contain your guide confirmation, your application change, a
 
 
 
-**WAIT FOR {{MEMBER_B}} (B):** the workflow PR must be merged. Create an issue titled **Validate and trim note titles**, assign yourself, and use its number in your feature PR. {{MEMBER_C}} (C) reviews and merges your feature after Checkpoint 5.
+**WAIT FOR B:** the workflow PR must be merged. Create an issue titled **Validate and trim note titles**, assign yourself, and use its number in your feature PR. C reviews and merges your feature after Checkpoint 5.
 
-### Student {{MEMBER_A}} (A) — Validate and normalize note titles
+### Student A — Validate and normalize note titles
 
 **A1. Create your branch locally:**
 
@@ -348,11 +346,11 @@ git push -u origin a/title-validation
 ```
 
 
-Follow the PR instructions below and request {{MEMBER_C}} (C). **Keep this PR open for Checkpoint 5.**
+Follow the PR instructions below and request C. **Keep this PR open for Checkpoint 5.**
 
 ## Checkpoint 5 — Demonstrate red → green on the same PR
 
-Do this on Student {{MEMBER_A}} (A)'s feature PR **before it merges**. Do not perform it on main.
+Do this on Student A's feature PR **before it merges**. Do not perform it on main.
 
 1. First obtain a green run for the legitimate feature changes.
 2. In `backend/tests/api.test.ts`, deliberately change the health expectation from `{ status: "ok" }` to `{ status: "broken" }`. Do not change the health endpoint.
@@ -386,21 +384,21 @@ git rev-parse HEAD
 ```
 
 Keep the passing run URL and repaired commit SHA. Expected: 18 backend tests pass again. A red run remains in the run history; the latest PR check must now be green.
-6. Student {{MEMBER_B}} (B) comments with the assertion's expected/actual difference and why the PR was blocked. Student {{MEMBER_C}} (C) verifies cleanup in the failed run and confirms the repaired run passes. Student {{MEMBER_A}} (A) explains the repair in the PR.
-7. Ask {{MEMBER_C}} (C) for final approval and a GitHub merge. Do not merge your own PR.
+6. Student B comments with the assertion's expected/actual difference and why the PR was blocked. Student C verifies cleanup in the failed run and confirms the repaired run passes. Student A explains the repair in the PR.
+7. Ask C for final approval and a GitHub merge. Do not merge your own PR.
 
 **Checkpoint evidence:** one PR with separate visible failing and repaired commits/runs, and named explanations from all three students. Keep both commits; do not squash away or rewrite the demonstration history. A syntax error or intentionally disabled workflow is not a substitute for a failing assertion.
 
 
-**WAIT FOR {{MEMBER_B}} (B) AND {{MEMBER_C}} (C):** {{MEMBER_B}} (B) must explain expected versus actual on the failing run; {{MEMBER_C}} (C) must confirm failed-run cleanup and repaired-run success. {{MEMBER_C}} (C) then reviews your latest revision and merges. Do not merge your own feature.
+**WAIT FOR B AND C:** B must explain expected versus actual on the failing run; C must confirm failed-run cleanup and repaired-run success. C then reviews your latest revision and merges. Do not merge your own feature.
 
-### Your review of {{MEMBER_B}} (B)'s feature
+### Your review of B's feature
 
-**WAIT FOR {{MEMBER_B}} (B):** {{MEMBER_B}} (B) sends the PR **Explain signup and login**. Read the component and its test. Check that the heading is “Your notes, together”, both navigation choices are explained, and sign-in is required to view notes. Use the review procedure at the end. Request fixes if needed; approve and merge only when green. Save your substantive review link.
+**WAIT FOR B:** B sends the PR **Explain signup and login**. Read the component and its test. Check that the heading is “Your notes, together”, both navigation choices are explained, and sign-in is required to view notes. Use the review procedure at the end. Request fixes if needed; approve and merge only when green. Save your substantive review link.
 
 ## Checkpoint 6 — Coordinate and review the conflict
 
-All three feature PRs must be merged first, including {{MEMBER_A}} (A)'s red → green demonstration. Do not start the conflict branches while features are still being merged.
+All three feature PRs must be merged first, including A's red → green demonstration. Do not start the conflict branches while features are still being merged.
 
 **WAIT FOR ALL THREE:** agree on a freeze: nobody merges unrelated changes until both conflict branches are created from the same main commit. Each student runs:
 ```sh
@@ -409,18 +407,18 @@ git pull --ff-only origin main
 git rev-parse HEAD
 ```
 
-Post the printed SHA in the issue **Planned login guidance conflict**. All three SHAs must match. {{MEMBER_B}} (B) and {{MEMBER_C}} (C) must confirm that both branches exist from this SHA before {{MEMBER_A}} (A) merges {{MEMBER_B}} (B)'s conflict PR.
+Post the printed SHA in the issue **Planned login guidance conflict**. All three SHAs must match. B and C must confirm that both branches exist from this SHA before A merges B's conflict PR.
 
-Create the issue **Planned login guidance conflict** and record the common base SHA. Ask {{MEMBER_B}} (B) and {{MEMBER_C}} (C) to each create their own branch and competing heading change using their guides.
+Create the issue **Planned login guidance conflict** and record the common base SHA. Ask B and C to each create their own branch and competing heading change using their guides.
 
-**WAIT FOR {{MEMBER_B}} (B) AND {{MEMBER_C}} (C):** both must post their conflict PR URLs and confirm their branches started from the recorded SHA. In particular, **do not merge {{MEMBER_B}} (B) until {{MEMBER_C}} (C)'s branch already exists**.
+**WAIT FOR B AND C:** both must post their conflict PR URLs and confirm their branches started from the recorded SHA. In particular, **do not merge B until C's branch already exists**.
 
-1. Review {{MEMBER_B}} (B)'s component and test. {{MEMBER_B}} (B)'s heading must be **Your team's private notes**; {{MEMBER_C}} (C)'s competing heading is **Your notes, organized**.
-2. Confirm {{MEMBER_B}} (B)'s PR is green, leave a substantive review, approve, and merge {{MEMBER_B}} (B)'s PR using **Create a merge commit**.
-3. Tell {{MEMBER_C}} (C): “{{MEMBER_B}} (B)'s conflict PR is merged. Fetch main and resolve on c/guidance-heading.”
-4. **WAIT FOR {{MEMBER_C}} (C):** ask {{MEMBER_C}} (C) for the actual conflict capture before resolution. A report of an automatic merge is insufficient; {{MEMBER_B}} (B)/{{MEMBER_C}} (C) must repeat from a common base with competing edits to the exact same line if no conflict occurs.
-5. **WAIT FOR {{MEMBER_B}} (B):** {{MEMBER_B}} (B) reviews and merges {{MEMBER_C}} (C)'s repaired PR. Pull main and inspect the final heading **Your team's notes, organized**, preserved paragraphs, matching test, and green push run.
-6. Record why {{MEMBER_B}} (B)'s earlier merge made {{MEMBER_C}} (C)'s branch conflict. Link the base SHA, both PRs, capture, resolution commit, and your review.
+1. Review B's component and test. B's heading must be **Your team's private notes**; C's competing heading is **Your notes, organized**.
+2. Confirm B's PR is green, leave a substantive review, approve, and merge B's PR using **Create a merge commit**.
+3. Tell C: “B's conflict PR is merged. Fetch main and resolve on c/guidance-heading.”
+4. **WAIT FOR C:** ask C for the actual conflict capture before resolution. A report of an automatic merge is insufficient; B/C must repeat from a common base with competing edits to the exact same line if no conflict occurs.
+5. **WAIT FOR B:** B reviews and merges C's repaired PR. Pull main and inspect the final heading **Your team's notes, organized**, preserved paragraphs, matching test, and green push run.
+6. Record why B's earlier merge made C's branch conflict. Link the base SHA, both PRs, capture, resolution commit, and your review.
 
 ## Checkpoint 7 — Verify the final main in Docker
 
@@ -457,7 +455,7 @@ Do not use `--volumes` on the application stack during the persistence check: it
 
 ## Submit your individual evidence
 
-**WAIT FOR:** {{MEMBER_C}} (C)'s conflict-resolution PR must be merged and final main checks must pass. Create your own evidence file so each student's contribution is attributable and separate.
+**WAIT FOR:** C's conflict-resolution PR must be merged and final main checks must pass. Create your own evidence file so each student's contribution is attributable and separate.
 
 ```sh
 git switch main
@@ -499,14 +497,14 @@ git commit -m "docs: record Student A lab evidence"
 git push -u origin a/evidence
 ```
 
-Open a PR against main. Request {{MEMBER_C}} (C) to review and merge after green checks. Review the evidence PR assigned to you too. Each student submits the repository link and their own evidence-file link on Teams.
+Open a PR against main. Request C to review and merge after green checks. Review the evidence PR assigned to you too. Each student submits the repository link and their own evidence-file link on Teams.
 
 **WAIT FOR ALL THREE EVIDENCE PRs:** after they merge, pull main again and submit the final main SHA plus green push-run URL on Teams. No extra commit is needed just to insert a commit's own SHA. If code, tests, or workflow changed since your Docker verification, repeat the checks on the final revision.
 
 ### Open, review, and merge each PR on GitHub
 
 1. Open the **team repository → Pull requests → New pull request**.
-2. Select **base: main** and **compare: your branch**. Inspect **Files changed**; your feature PR should contain your assigned code/tests and your own guide confirmation. The initial workflow PR also includes all four personalized lab documents. Later conflict/evidence PRs contain only their stated files.
+2. Select **base: main** and **compare: your branch**. Inspect **Files changed**; your feature PR should contain your assigned code/tests and your own guide confirmation. The initial workflow PR contains the workflow YAML. Later conflict/evidence PRs contain only their stated files.
 3. Choose **Create pull request**. Use your commit message as its title. Copy this body, replacing the capitalized placeholders:
 
 ```md
@@ -523,14 +521,14 @@ ONE_SPECIFIC_THING_FOR_THE_REVIEWER_TO_CHECK
 ```
 
 
-4. Under **Reviewers**, request {{MEMBER_C}} (C) for your feature PR; {{MEMBER_B}} (B) for your workflow PR. In **Checks**, open **Team collaboration checks → tests** and inspect individual steps. Save the run URL.
+4. Under **Reviewers**, request C for your feature PR; B for your workflow PR. In **Checks**, open **Team collaboration checks → tests** and inspect individual steps. Save the run URL.
 5. Reviewer: open **Files changed**, select a line's **+** button, and leave a specific comment explaining a checked behavior or a needed correction. Use **Review changes → Request changes** for a required fix. Do not copy a review claim without checking it.
 6. Author: make requested edits on the same branch, rebuild/retest, commit the changed files, and `git push`. The existing PR updates automatically. Reply to the review with what changed.
 7. Reviewer: inspect the latest revision and results, resolve addressed discussions, and use **Review changes → Approve**.
-8. When checks are green, the reviewer selects **Merge pull request → Create a merge commit → Confirm merge**. Use merge commits for this lab so demonstration commits stay visible. **Hold {{MEMBER_A}} (A)'s feature PR until Checkpoint 5 is complete. This hold does not apply to {{MEMBER_A}} (A)'s workflow PR.**
+8. When checks are green, the reviewer selects **Merge pull request → Create a merge commit → Confirm merge**. Use merge commits for this lab so demonstration commits stay visible. **Hold A's feature PR until Checkpoint 5 is complete. This hold does not apply to A's workflow PR.**
 9. Everyone updates their local main with `git switch main` and `git pull --ff-only origin main`. Do not copy files between teammates' folders.
 
-**Expected integrated result after {{MEMBER_A}} (A), {{MEMBER_B}} (B), and {{MEMBER_C}} (C) merge:** 18 backend tests and 5 frontend tests, plus passing lint/type checking. Tests on an older feature branch may contain fewer teammate tests until it incorporates current main.
+**Expected integrated result after A, B, and C merge:** 18 backend tests and 5 frontend tests, plus passing lint/type checking. Tests on an older feature branch may contain fewer teammate tests until it incorporates current main.
 
 ## Individual grading — /10 per student
 
@@ -544,7 +542,7 @@ Team membership alone does not earn credit. The instructor grades each student u
 | Review and integration | 2 | Substantive review of a teammate's PR, verified fixes/approval, and compliant merge participation |
 | CI failure and conflict understanding | 2 | 1 point: named red/green contribution and explanation; 1 point: named real-conflict contribution and explanation |
 | Final Docker verification and evidence | 1 | Own final-main checks, working live demonstration, complete traceable evidence |
-| **Total** | **10** | **Assessed separately for {{MEMBER_A}} (A), {{MEMBER_B}} (B), and {{MEMBER_C}} (C)** |
+| **Total** | **10** | **Assessed separately for A, B, and C** |
 
 Partial credit follows demonstrated completion within each criterion. Missing or unattributable work earns no credit for that part. A teammate's successful implementation cannot replace your own code, tests, review, or explanation.
 
