@@ -18,7 +18,7 @@ git config --global user.email "YOUR GITHUB EMAIL"
 
 Assign Student A, B, and C and record names and GitHub usernames in `docs/team-collab-evidence.md`. These are task assignments, not permanent roles: everyone codes, tests, reviews, and verifies Docker.
 
-All code and tests needed for the assigned changes are supplied below. Copy blocks into the exact stated locations, preserving names and indentation. Replace only explicit uppercase placeholders in setup, PR descriptions, and evidence. Terminal commands run locally from the repository root; YAML steps run on GitHub. Do not paste terminal commands into source files.
+Replace only explicit uppercase placeholders in setup, PR descriptions, and evidence. Terminal commands run locally from the repository root.
 
 **Work one checkpoint at a time. Inspect the result and keep its evidence before continuing. Never merge a red PR.**
 
