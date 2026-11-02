@@ -8,9 +8,19 @@ This is a separate lab from [student-lab.md](student-lab.md). Use its incrementa
 
 ## Before you start
 
-Each student needs a GitHub account, Git, an editor, and Docker Desktop running with Docker Compose available. Use your own account for commits, PRs, and reviews. Configure your Git name and an email associated with your GitHub account.
+Each student needs a GitHub account, Git, an editor, and Docker Desktop running with Docker Compose available. Use your own account for commits, PRs, and reviews. Configure your Git name and an email associated with your GitHub account. Run these locally, replacing the example values:
+
+```sh
+git config --global user.name "YOUR NAME"
+git config --global user.email "YOUR GITHUB EMAIL"
+git --version
+docker compose version
+```
+
 
 Assign Student A, B, and C and record names and GitHub usernames in `docs/team-collab-evidence.md`. These are task assignments, not permanent roles: everyone codes, tests, reviews, and verifies Docker.
+
+All code and tests needed for the assigned changes are supplied below. Copy blocks into the exact stated locations, preserving names and indentation. Replace only explicit uppercase placeholders in setup, PR descriptions, and evidence. Terminal commands run locally from the repository root; YAML steps run on GitHub. Do not paste terminal commands into source files.
 
 **Work one checkpoint at a time. Inspect the result and keep its evidence before continuing. Never merge a red PR.**
 
@@ -41,7 +51,15 @@ Assign Student A, B, and C and record names and GitHub usernames in `docs/team-c
 
    Check staged files before committing. Do not include `.env`, passwords, `node_modules`, or generated build files. A ZIP download has no original Git history; do not copy a different project's `.git` folder.
 4. The owner opens **Settings → Collaborators → Add people** and invites both teammates. Both accept. Invite **chakirouAlabani** with Write access for grading and send the shared repository link to the instructor on Teams.
-5. The other two teammates clone the **new team repository**, not the instructor's repository. From now on, all three work in clones of that same remote.
+5. The other two teammates clone the **new team repository**, not the instructor's repository. Replace OWNER and TEAM-REPOSITORY, then run:
+
+```sh
+git clone https://github.com/OWNER/TEAM-REPOSITORY.git
+cd TEAM-REPOSITORY
+git remote -v
+```
+
+The owner stays in the imported project folder. Everyone's origin URL must identify the same team repository. From now on, all three work in clones of that same remote.
 
 **Checkpoint evidence:** shared repository URL, roster, and accepted collaborator access. The initial starter import is the only direct push to main allowed in this lab.
 
@@ -70,7 +88,13 @@ Use paths relevant to your own task. Open the PR on GitHub, request review, and 
 
 ## Checkpoint 2 — Establish the baseline
 
-Each student performs this checkpoint locally. Copy root `.env.example` to root `.env`, set a nonempty local `SESSION_SECRET`, and keep `.env` out of Git. From the repository root:
+Each student performs this checkpoint locally. In your editor, copy root `.env.example` to a new root file named `.env`. Alternatively, in PowerShell run `Copy-Item .env.example .env` once (do not overwrite an existing configured file). In `.env`, set `SESSION_SECRET` to your own long random local value. For example, the line has this form; replace the placeholder:
+
+```dotenv
+SESSION_SECRET=REPLACE_WITH_YOUR_OWN_LONG_RANDOM_VALUE
+```
+
+Keep any other supplied settings and keep `.env` out of Git. From the repository root:
 
 ```sh
 docker compose up --build -d --wait
@@ -98,7 +122,15 @@ Expected baseline: **5 backend tests, 2 frontend tests**, successful lint and ty
 
 Student A authors `a/pr-checks`; Student B reviews and merges it. Student C inspects the run and records what each service checks.
 
-Create `.github/workflows/team-collab.yml` in the **team repository**, with this complete workflow:
+First create the branch locally:
+
+```sh
+git switch main
+git pull --ff-only origin main
+git switch -c a/pr-checks
+```
+
+In your editor, create folders `.github` and `workflows` if needed. Create `.github/workflows/team-collab.yml` in the **team repository**, with this complete workflow:
 
 ```yaml
 name: Team collaboration checks
@@ -142,49 +174,374 @@ jobs:
 
 Keep cleanup last and `if: always()`. Do not add `continue-on-error`, skip tests, or weaken assertions to get green. No `setup-node`, GHCR login, personal token, or uploaded .env is needed: tests execute inside the supplied containers.
 
-Push the branch and open a PR. Confirm checks run **before merge** and all seven starter tests pass. Review and merge it before opening the feature PRs. The push trigger also verifies integrated main. If an inherited workflow exists, inspect its triggers; do not add publishing to this lab or confuse a publishing run with these required tests.
+Save the workflow, then run:
+
+```sh
+git diff
+git add .github/workflows/team-collab.yml
+git commit -m "ci: run Compose checks on pull requests"
+git push -u origin a/pr-checks
+```
+
+Open **Pull requests → New pull request**, select base **main** and compare **a/pr-checks**, and create the PR. Request B as reviewer. Use the detailed review procedure in Checkpoint 4 for this PR too. Confirm checks run **before merge** and all seven starter tests pass. Review and merge it before opening the feature PRs. The push trigger also verifies integrated main. If an inherited workflow exists, inspect its triggers; do not add publishing to this lab or confuse a publishing run with these required tests.
 
 **Checkpoint evidence:** workflow PR, substantive review, and green PR run. Configure the main rule to require this workflow's `tests` check.
 
-## Checkpoint 4 — Three concrete code tasks
+## Checkpoint 4 — Copy the three code changes and their tests
 
-Create three task issues, assign one to each student, and link each issue from its PR. Each student must change application code **and add meaningful automated tests**. Keep existing tests passing and preserve authentication, note ownership, and CRUD behavior.
+The code below is supplied so you can concentrate on collaboration. Copy it into the stated locations; do not invent a different feature. You are responsible for understanding, testing, committing, and explaining your own change. “Authored” in the rubric means you personally apply and commit your assigned work and can explain it, even when the starter code is supplied here.
+
+Create issues using **Issues → New issue** with these titles and assignees:
+
+| Student | Issue title | Branch | Reviewer / merger |
+| --- | --- | --- | --- |
+| A | Validate and trim note titles | a/title-validation | C |
+| B | Explain signup and login | b/login-guidance | A |
+| C | Make note deletion accessible | c/delete-button | B |
+
+Copy each task's expected result into its issue description. Record the issue number for your PR. All three start from main after Checkpoint 3 is merged. B and C may merge when green; **A must complete Checkpoint 5 on the open feature PR before merging**.
 
 ### Student A — Validate and normalize note titles
 
-Files: `backend/src/controllers/notes.ts` and `backend/tests/api.test.ts`.
+**A1. Create your branch locally:**
 
-Currently create/update check whether a title is truthy. Improve **both** operations:
+```sh
+git switch main
+git pull --ff-only origin main
+git switch -c a/title-validation
+```
 
-- Reject missing, empty, whitespace-only, and non-string titles with HTTP 400.
-- Trim surrounding whitespace before saving; `"  Team note  "` must be stored and returned as `"Team note"`.
-- Keep existing status codes and ownership restrictions for valid requests. Invalid user input must not become an HTTP 500.
 
-Add API tests using the existing `request.agent(app)` signup pattern. Cover POST and PATCH rejection of whitespace-only and non-string titles, and successful trimming on both operations. Assert returned/stored values; a rejected PATCH must leave the previous note unchanged. Do not remove the existing CRUD or cross-user tests.
+**A2. Edit only the stated pieces of `backend/src/controllers/notes.ts`.**
+
+In `createNote`, replace this existing block:
+
+```ts
+if (!title) {
+            throw createHttpError(400, "Note must have a title");
+        }
+```
+
+
+with:
+
+```ts
+if (typeof title !== "string" || title.trim().length === 0) {
+            throw createHttpError(400, "Note must have a title");
+        }
+```
+
+
+In the `NoteModel.create` object immediately below, replace `title: title,` with:
+
+```ts
+title: title.trim(),
+```
+
+
+In `updateNote`, replace this existing block:
+
+```ts
+if (!newTitle) {
+            throw createHttpError(400, "Note must have a title");
+        }
+```
+
+
+with:
+
+```ts
+if (typeof newTitle !== "string" || newTitle.trim().length === 0) {
+            throw createHttpError(400, "Note must have a title");
+        }
+```
+
+
+Replace `note.title = newTitle;` with:
+
+```ts
+note.title = newTitle.trim();
+```
+
+
+Leave the rest of the controller, including session, ownership, ID validation, and status codes, unchanged. The type check protects runtime JSON input even though the TypeScript interface describes a string. The `||` stops evaluation before `.trim()` when the value is not a string.
+
+**A3. Append these tests at the end of `backend/tests/api.test.ts`.** Keep its imports, setup/cleanup, and all five existing tests. The existing `app`, `request`, and `credentials` values are reused; no new imports are needed.
+
+```ts
+test.each([
+    ["missing", {}],
+    ["empty", { title: "" }],
+    ["whitespace", { title: "   " }],
+    ["number", { title: 42 }],
+    ["null", { title: null }],
+    ["object", { title: { value: "Title" } }],
+])("POST rejects a %s title without saving a note", async (_label, body) => {
+    const client = request.agent(app);
+    await client.post("/api/users/signup").send(credentials).expect(201);
+    await client.post("/api/notes").send(body).expect(400);
+    const list = await client.get("/api/notes").expect(200);
+    expect(list.body).toEqual([]);
+});
+
+test.each([
+    ["missing", {}],
+    ["empty", { title: "" }],
+    ["whitespace", { title: "   " }],
+    ["number", { title: 42 }],
+    ["null", { title: null }],
+    ["object", { title: { value: "Title" } }],
+])("PATCH rejects a %s title and preserves the original note", async (_label, body) => {
+    const client = request.agent(app);
+    await client.post("/api/users/signup").send(credentials).expect(201);
+    const created = await client.post("/api/notes")
+        .send({ title: "Original", text: "Keep this text" }).expect(201);
+    const url = "/api/notes/" + created.body._id;
+    await client.patch(url).send(body).expect(400);
+    const unchanged = await client.get(url).expect(200);
+    expect(unchanged.body.title).toBe("Original");
+    expect(unchanged.body.text).toBe("Keep this text");
+});
+
+test("POST and PATCH trim titles before saving", async () => {
+    const client = request.agent(app);
+    await client.post("/api/users/signup").send(credentials).expect(201);
+    const created = await client.post("/api/notes")
+        .send({ title: "  Team note  ", text: "Shared work" }).expect(201);
+    expect(created.body.title).toBe("Team note");
+    const url = "/api/notes/" + created.body._id;
+    const saved = await client.get(url).expect(200);
+    expect(saved.body.title).toBe("Team note");
+    const updated = await client.patch(url)
+        .send({ title: "  Updated team note  ", text: "Shared work" }).expect(200);
+    expect(updated.body.title).toBe("Updated team note");
+    const savedAgain = await client.get(url).expect(200);
+    expect(savedAgain.body.title).toBe("Updated team note");
+});
+```
+
+
+Each `test.each` row becomes a separate test. The tests prove rejected input does not save or overwrite data, and GET confirms trimmed titles were persisted.
+
+**A4. Rebuild and verify locally:**
+
+```sh
+docker compose -f compose.test.yaml build backend-test
+docker compose -f compose.test.yaml run --rm backend-test
+docker compose -f compose.test.yaml run --rm backend-test npm run lint
+docker compose -f compose.test.yaml run --rm backend-test npm run typecheck
+docker compose -f compose.test.yaml down --volumes
+```
+
+
+**Expected:** 18 backend tests pass (5 original + 6 POST cases + 6 PATCH cases + 1 trimming test); lint and type checking succeed.
+
+**A5. Commit and open the PR:**
+
+```sh
+git diff
+git add backend/src/controllers/notes.ts backend/tests/api.test.ts
+git commit -m "feat: validate and trim note titles"
+git push -u origin a/title-validation
+```
+
+
+Follow the PR instructions below and request C. **Keep this PR open for Checkpoint 5.**
 
 ### Student B — Give logged-out users clear guidance
 
-Files: `frontend/src/components/NotesPageLoggedOutView.tsx` and a new adjacent `NotesPageLoggedOutView.test.tsx`.
+**B1. Create your branch:**
 
-Replace the current single paragraph with accessible content containing:
+```sh
+git switch main
+git pull --ff-only origin main
+git switch -c b/login-guidance
+```
 
-- A heading: **Your notes, together**.
-- Clear text telling new users to choose **Sign Up** and returning users to choose **Log In** in the navigation.
-- A statement that users must sign in to view their notes.
 
-Use semantic elements. Do not add fake buttons or change authentication/network behavior. Add a React Testing Library test that renders this component and checks the heading by role and the guidance text. The existing navigation callback tests must still pass.
+**B2. Replace the entire contents of `frontend/src/components/NotesPageLoggedOutView.tsx` with:**
+
+```tsx
+const NotesPageLoggedOutView = () => {
+    return (
+        <section aria-labelledby="notes-welcome-heading">
+            <h1 id="notes-welcome-heading">Your notes, together</h1>
+            <p>New here? Choose Sign Up in the navigation.</p>
+            <p>Already have an account? Choose Log In in the navigation.</p>
+            <p>You must sign in to view your notes.</p>
+        </section>
+    );
+};
+
+export default NotesPageLoggedOutView;
+```
+
+
+The heading identifies the section, and the paragraphs refer to existing navigation buttons. No new authentication logic is needed.
+
+**B3. Create `frontend/src/components/NotesPageLoggedOutView.test.tsx` with the entire following contents:**
+
+```tsx
+import { render, screen } from '@testing-library/react';
+import NotesPageLoggedOutView from './NotesPageLoggedOutView';
+
+test('explains how new and returning users can access their notes', () => {
+    render(<NotesPageLoggedOutView />);
+    expect(screen.getByRole('heading', { level: 1, name: "Your notes, together" }))
+        .toBeInTheDocument();
+    expect(screen.getByText('New here? Choose Sign Up in the navigation.'))
+        .toBeInTheDocument();
+    expect(screen.getByText('Already have an account? Choose Log In in the navigation.'))
+        .toBeInTheDocument();
+    expect(screen.getByText('You must sign in to view your notes.'))
+        .toBeInTheDocument();
+});
+```
+
+
+**B4. Rebuild and test:**
+
+```sh
+docker compose -f compose.test.yaml build frontend-test
+docker compose -f compose.test.yaml run --rm frontend-test
+docker compose -f compose.test.yaml down --volumes
+```
+
+
+**Expected:** 3 frontend tests pass if C's task has not merged; 5 if C's task has merged and is included in your branch. The two original tests remain.
+
+**B5. Commit and push:**
+
+```sh
+git diff
+git add frontend/src/components/NotesPageLoggedOutView.tsx frontend/src/components/NotesPageLoggedOutView.test.tsx
+git commit -m "feat: explain how to access notes"
+git push -u origin b/login-guidance
+```
+
+
+Open a PR targeting main, request A, and follow the review procedure below.
 
 ### Student C — Make note deletion keyboard accessible
 
-Files: `frontend/src/components/Note.tsx` and a new adjacent `Note.test.tsx`.
+**C1. Create your branch:**
 
-The current delete icon has a mouse click handler. Put it inside a real `button` with `type="button"` and an accessible name such as `Delete note: Team note`, derived from the note title. Keep the icon decorative and preserve the layout.
+```sh
+git switch main
+git pull --ff-only origin main
+git switch -c c/delete-button
+```
 
-The button must call `onDeleteNoteClicked(note)` exactly once, stop the click from opening the note, and support native keyboard activation. Clicking the note title must still call `onNoteClicked(note)`.
 
-Add tests that locate the delete button by role/name, click it, assert the delete callback receives the note exactly once, and assert the open callback is not called. Also test opening through the title. Manually verify Tab focus and Enter/Space activation in the browser; do not claim a synthetic keydown test proves native browser activation.
+**C2. In `frontend/src/components/Note.tsx`, find the `<MdDelete ... />` element inside `Card.Title`.** Replace that entire element, including its existing `onClick`, with:
 
-**For each feature PR:** run relevant Compose tests after rebuilding, then inspect the full PR checks. Reviewer checks the acceptance criteria and leaves at least one specific technical comment. Resolve feedback and merge only when green. The suite now contains more than the original seven tests; record the actual totals.
+```tsx
+<button
+    type="button"
+    className="btn btn-link text-muted ms-auto p-0"
+    aria-label={"Delete note: " + title}
+    onClick={(event) => {
+        event.stopPropagation();
+        onDeleteNoteClicked(note);
+    }}
+>
+    <MdDelete aria-hidden="true" focusable="false" />
+</button>
+```
+
+
+Keep the existing `MdDelete` import and all surrounding component code. The Bootstrap classes retain the icon's position. A native button provides Tab focus and keyboard activation. The accessible name includes the note title; the decorative icon is hidden from assistive technology. `stopPropagation()` prevents the card's click handler from also opening the note.
+
+**C3. Create `frontend/src/components/Note.test.tsx` with:**
+
+```tsx
+import { fireEvent, render, screen } from '@testing-library/react';
+import Note from './Note';
+
+const note = {
+    _id: 'team-note',
+    title: 'Team note',
+    text: 'Review before merging',
+    createdAt: '2026-01-01T12:00:00Z',
+    updatedAt: '2026-01-01T12:00:00Z',
+};
+
+test('delete button deletes once without opening the note', () => {
+    const open = jest.fn();
+    const remove = jest.fn();
+    render(<Note note={note} onNoteClicked={open} onDeleteNoteClicked={remove} />);
+    const button = screen.getByRole('button', { name: 'Delete note: Team note' });
+    expect(button).toHaveAttribute('type', 'button');
+    fireEvent.click(button);
+    expect(remove).toHaveBeenCalledTimes(1);
+    expect(remove).toHaveBeenCalledWith(note);
+    expect(open).not.toHaveBeenCalled();
+});
+
+test('clicking the title opens the note without deleting it', () => {
+    const open = jest.fn();
+    const remove = jest.fn();
+    render(<Note note={note} onNoteClicked={open} onDeleteNoteClicked={remove} />);
+    fireEvent.click(screen.getByText('Team note'));
+    expect(open).toHaveBeenCalledTimes(1);
+    expect(open).toHaveBeenCalledWith(note);
+    expect(remove).not.toHaveBeenCalled();
+});
+```
+
+
+**C4. Rebuild and test:**
+
+```sh
+docker compose -f compose.test.yaml build frontend-test
+docker compose -f compose.test.yaml run --rm frontend-test
+docker compose -f compose.test.yaml down --volumes
+docker compose up --build -d --wait
+```
+
+
+**Expected:** 4 frontend tests pass without B's change; 5 with it. In the browser, sign in and create two notes. Press Tab until a delete button has focus; press Enter to delete one. Repeat using Space for the other. Neither action should open the edit dialog. The automated tests verify callbacks and bubbling; this browser check verifies native keyboard behavior.
+
+**C5. Commit and push:**
+
+```sh
+git diff
+git add frontend/src/components/Note.tsx frontend/src/components/Note.test.tsx
+git commit -m "feat: make note deletion keyboard accessible"
+git push -u origin c/delete-button
+```
+
+
+Open a PR targeting main, request B, and follow the procedure below.
+
+### Open, review, and merge each PR on GitHub
+
+1. Open the **team repository → Pull requests → New pull request**.
+2. Select **base: main** and **compare: your branch**. Inspect **Files changed**; only your assigned files should appear.
+3. Choose **Create pull request**. Use your commit message as its title. Copy this body, replacing the capitalized placeholders:
+
+```md
+Closes #ISSUE_NUMBER
+
+## Change
+BEFORE_AND_AFTER_BEHAVIOR
+
+## Local verification
+COMMANDS_RUN_AND_ACTUAL_RESULTS
+
+## Review focus
+ONE_SPECIFIC_THING_FOR_THE_REVIEWER_TO_CHECK
+```
+
+
+4. Under **Reviewers**, request the student named in the assignment table. In **Checks**, open **Team collaboration checks → tests** and inspect individual steps. Save the run URL.
+5. Reviewer: open **Files changed**, select a line's **+** button, and leave a specific comment explaining a checked behavior or a needed correction. Use **Review changes → Request changes** for a required fix. Do not copy a review claim without checking it.
+6. Author: make requested edits on the same branch, rebuild/retest, commit the changed files, and `git push`. The existing PR updates automatically. Reply to the review with what changed.
+7. Reviewer: inspect the latest revision and results, resolve addressed discussions, and use **Review changes → Approve**.
+8. When checks are green, the reviewer selects **Merge pull request → Create a merge commit → Confirm merge**. Use merge commits for this lab so demonstration commits stay visible. **Do not merge A until Checkpoint 5 is complete.**
+9. Everyone updates their local main with `git switch main` and `git pull --ff-only origin main`. Do not copy files between teammates' folders.
+
+**Expected integrated result after A, B, and C merge:** 18 backend tests and 5 frontend tests, plus passing lint/type checking. Tests on an older feature branch may contain fewer teammate tests until it incorporates current main.
 
 ## Checkpoint 5 — Demonstrate red → green on the same PR
 
@@ -192,9 +549,36 @@ Do this on Student A's feature PR **before it merges**. Do not perform it on mai
 
 1. First obtain a green run for the legitimate feature changes.
 2. In `backend/tests/api.test.ts`, deliberately change the health expectation from `{ status: "ok" }` to `{ status: "broken" }`. Do not change the health endpoint.
-3. Commit with `test: demonstrate failing PR check` and push the same branch.
+3. Save the test file. While still on `a/title-validation`, run:
+
+```sh
+git add backend/tests/api.test.ts
+git commit -m "test: demonstrate failing PR check"
+git push
+git rev-parse HEAD
+```
+
+Copy the printed SHA as the failing commit.
 4. Open the PR check details. Confirm the backend assertion fails, later normal steps are skipped, and cleanup still runs. Keep the failed run URL and failing commit SHA. Do not merge.
-5. Restore `{ status: "ok" }`, commit with `test: restore passing health assertion`, and push to the same branch. Keep the passing run URL and repaired commit SHA.
+5. Restore the health test to this complete block (replace only the health test, not the file):
+
+```ts
+test("health endpoint is available", async () => {
+    const response = await request(app).get("/api/health").expect(200);
+    expect(response.body).toEqual({ status: "ok" });
+});
+```
+
+Then run:
+
+```sh
+git add backend/tests/api.test.ts
+git commit -m "test: restore passing health assertion"
+git push
+git rev-parse HEAD
+```
+
+Keep the passing run URL and repaired commit SHA. Expected: 18 backend tests pass again. A red run remains in the run history; the latest PR check must now be green.
 6. Student B comments with the assertion's expected/actual difference and why the PR was blocked. Student C verifies cleanup in the failed run and confirms the repaired run passes. Student A explains the repair in the PR.
 7. Obtain the final approval, then merge through GitHub.
 
@@ -225,6 +609,122 @@ Complete the feature merges first. Use a fresh synchronization point so the conf
 8. Student B reviews the resolution, checks that both intentions are represented and tests match, and merges C's PR after green checks. Student A checks the integrated result on main.
 
 **Checkpoint evidence:** shared base SHA, both PR URLs, actual conflict capture, resolution commit SHA, discussion of the chosen wording, and final green run. B and C explain their competing edits; A explains why merge order caused the conflict. Conflict resolution happens on the feature branch; main still changes only through a reviewed PR.
+
+
+### Exact edits and commands for the conflict exercise
+
+Perform these steps at the matching numbered steps above. B and C must create their branches **before B's conflict PR merges**.
+
+**Both B and C — synchronize before branching:**
+
+```sh
+git switch main
+git pull --ff-only origin main
+git rev-parse HEAD
+```
+
+
+Compare the printed SHAs; they must be identical. B then runs `git switch -c b/guidance-heading`; C runs `git switch -c c/guidance-heading`. Neither uses a newly pulled main to create C's branch after B merges.
+
+**B — replace only the heading line in the component with:**
+
+```tsx
+<h1 id="notes-welcome-heading">Your team's private notes</h1>
+```
+
+
+In `NotesPageLoggedOutView.test.tsx`, replace only the heading expectation with:
+
+```tsx
+expect(screen.getByRole('heading', { level: 1, name: "Your team's private notes" }))
+        .toBeInTheDocument();
+```
+
+
+**C — on C's branch, replace the same component line with:**
+
+```tsx
+<h1 id="notes-welcome-heading">Your notes, organized</h1>
+```
+
+
+Replace the heading expectation in the test with:
+
+```tsx
+expect(screen.getByRole('heading', { level: 1, name: "Your notes, organized" }))
+        .toBeInTheDocument();
+```
+
+
+**Both — test your own branch and stage the two files:**
+
+```sh
+docker compose -f compose.test.yaml build frontend-test
+docker compose -f compose.test.yaml run --rm frontend-test
+docker compose -f compose.test.yaml down --volumes
+git add frontend/src/components/NotesPageLoggedOutView.tsx frontend/src/components/NotesPageLoggedOutView.test.tsx
+git commit -m "feat: revise logged-out heading"
+```
+
+
+B runs `git push -u origin b/guidance-heading`; C runs `git push -u origin c/guidance-heading`. Open both PRs against main. Expected: 5 frontend tests pass on each branch. A reviews and merges B first, following the PR procedure.
+
+**C — after B merges, produce the conflict locally:**
+
+```sh
+git switch c/guidance-heading
+git fetch origin
+git merge origin/main
+git status
+```
+
+
+The merge should stop and report conflicting files. This is expected. Your component will contain a block like this:
+
+```text
+<<<<<<< HEAD
+            <h1 id="notes-welcome-heading">Your notes, organized</h1>
+=======
+            <h1 id="notes-welcome-heading">Your team's private notes</h1>
+>>>>>>> origin/main
+```
+
+
+Capture this before editing. `HEAD` is C's current branch; `origin/main` contains B's merged change. A similar block will occur in the test.
+
+Replace the **whole conflict block** in the component, including all three marker lines, with:
+
+```tsx
+<h1 id="notes-welcome-heading">Your team's notes, organized</h1>
+```
+
+
+Replace the **whole conflicting expectation block** in the test with:
+
+```tsx
+expect(screen.getByRole('heading', { level: 1, name: "Your team's notes, organized" }))
+        .toBeInTheDocument();
+```
+
+
+Preserve all other paragraphs and assertions. Save both files, then run:
+
+```sh
+git diff --check
+docker compose -f compose.test.yaml build frontend-test
+docker compose -f compose.test.yaml run --rm frontend-test
+docker compose -f compose.test.yaml down --volumes
+git add frontend/src/components/NotesPageLoggedOutView.tsx frontend/src/components/NotesPageLoggedOutView.test.tsx
+git diff --cached
+git status
+git commit -m "merge: combine both login guidance headings"
+git push
+git rev-parse HEAD
+```
+
+
+Expected: no remaining conflict markers, 5 passing frontend tests, and a resolution commit on C's branch. Copy that SHA. Open C's existing PR; B reviews the resolution and merges only after the new run is green. Do not create a replacement PR that hides the conflict history.
+
 
 ## Checkpoint 7 — Verify the final main in Docker
 
@@ -272,6 +772,57 @@ Maintain `docs/team-collab-evidence.md` through reviewed PRs; each student autho
 - A concise contribution table: student → code/test PR → review given → CI/conflict role → final verification.
 
 Commit evidence via a final reviewed PR and keep its checks green. After it merges, all students pull main again and record/submit that final SHA and its green push run; repeat the final checks if application, test, or workflow files changed. Submit the repository and evidence-document links on Teams as instructed. Ensure the instructor can access private repositories. Screenshots supplement links; they do not replace attributable commits, PR reviews, and Actions runs.
+
+
+### Copy-ready evidence document
+
+At the end, A creates `a/team-evidence` from current main and creates `docs/team-collab-evidence.md` with the template below. Replace every uppercase placeholder with actual results and links. A fills the shared fields and A's section, then opens a PR. After A's PR merges, B and C each fill their own section from their own branch through a follow-up reviewed PR, so the final file has individually attributable updates. Work sequentially and pull main before each evidence branch to avoid an unnecessary second conflict.
+
+```md
+# Team collaboration evidence
+
+## Team and source
+- Team repository: URL
+- Source: https://github.com/chakirouAlabani/mern-notes
+- Download date: DATE
+- A: NAME / GITHUB_USERNAME
+- B: NAME / GITHUB_USERNAME
+- C: NAME / GITHUB_USERNAME
+- Collaborators accepted; instructor invited: DETAILS
+- Main protection or manual enforcement limitation: DETAILS
+
+## Shared checkpoints
+- Workflow PR and green run: URLS
+- Task issues: URLS
+- Feature PRs: URLS
+- Failed run / commit: URL / SHA
+- Repaired run / commit: URL / SHA
+- Conflict base: SHA
+- B and C conflict PRs: URLS
+- Conflict capture: IMAGE_OR_LINK
+- Resolution commit and green run: SHA / URL
+- Final backend/frontend totals: ACTUAL_COUNTS
+
+## Student A
+- Code and tests I applied and can explain: PR_URL_AND_EXPLANATION
+- Review I gave: REVIEW_URL_AND_WHAT_I_CHECKED
+- CI failure contribution and explanation: DETAILS
+- Conflict contribution and explanation: DETAILS
+- Local baseline results: RESULTS
+- Final main SHA and Docker results: SHA_AND_RESULTS
+- Keyboard/CRUD/persistence checks: RESULTS
+- Live demonstration: DATE_AND_RESULT
+
+## Student B
+COPY_THE_SAME_FIELDS_AND_FILL_WITH_BS_OWN_EVIDENCE
+
+## Student C
+COPY_THE_SAME_FIELDS_AND_FILL_WITH_CS_OWN_EVIDENCE
+```
+
+
+For your own evidence update, create a unique branch such as `b/my-evidence`, edit only your section, then stage `docs/team-collab-evidence.md`, commit, push, and use the same PR review process. Submit the final SHA and run URL on Teams after the last evidence PR merges; you do not need another commit merely to insert that commit's own SHA into the file.
+
 
 ## Individual grading — /10 per student
 
