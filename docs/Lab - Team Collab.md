@@ -16,7 +16,7 @@ git config --global user.email "YOUR GITHUB EMAIL"
 ```
 
 
-Assign Student A, B, and C and record names and GitHub usernames in `docs/team-collab-evidence.md`. These are task assignments, not permanent roles: everyone codes, tests, reviews, and verifies Docker.
+Assign Student A, B, and C. These are task assignments, not permanent roles: everyone codes, tests, reviews, and verifies Docker.
 
 Replace only explicit uppercase placeholders in setup, PR descriptions, and evidence. Terminal commands run locally from the repository root.
 
@@ -34,7 +34,7 @@ Replace only explicit uppercase placeholders in setup, PR descriptions, and evid
 
 ## Checkpoint 1 — Create the shared team repository
 
-1. Open [chakirouAlabani/mern-notes](https://github.com/chakirouAlabani/mern-notes), select **Code → Download ZIP**, and extract it. Record the download date and source repository URL in your evidence document. Keep the licence/attribution files supplied with the source.
+1. Open [chakirouAlabani/mern-notes](https://github.com/chakirouAlabani/mern-notes), select **Code → Download ZIP**, and extract it.
 2. One teammate creates a **new empty repository**, for example `420-530-team-03-notes`. **Do not fork** and do not initialize the remote with a README, licence, or .gitignore. Choose visibility according to your instructor's directions.
 3. In the extracted project root (the folder containing `compose.yaml`), initialize and upload the starter. Replace the uppercase placeholders:
 
