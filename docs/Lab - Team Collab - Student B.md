@@ -6,7 +6,7 @@
 
 **420-530-LE · Team of three · Your individual grade: /10**
 
-Follow the checkpoints in order, and perform review/handoff requests as soon as a teammate is ready—even if their request appears later in this guide. Do not make everyone wait until you finish your own feature before reviewing theirs. This guide includes your supplied code, tests, reviews, dependencies, and final verification. Other members use [Student A](Lab%20-%20Team%20Collab%20-%20Student%20A.md) and [Student C](Lab%20-%20Team%20Collab%20-%20Student%20C.md). See the [team overview](Lab%20-%20Team%20Collab.md) for the complete handoff order.
+Follow the checkpoints in order, and perform review/handoff requests as soon as a teammate is ready—even if their request appears later in this guide. Do not make everyone wait until you finish your own feature before reviewing theirs. This guide includes your supplied code, tests, reviews, dependencies, and final verification. Other members use [Student A](Lab%20-%20Team%20Collab%20-%20Student%20A.md) and [Student C](Lab%20-%20Team%20Collab%20-%20Student%20C.md). See the [team overview](../README.md) for the complete handoff order.
 
 Use your own GitHub account. Run commands locally from your project root, except workflow YAML which runs on GitHub. Replace explicit uppercase placeholders only. Copy supplied code into the exact stated locations; understand it and briefly explain your code/tests in your PR. No GHCR publication or online deployment is required.
 
