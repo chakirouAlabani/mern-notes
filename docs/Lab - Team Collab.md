@@ -8,13 +8,11 @@ This is a separate lab from [student-lab.md](student-lab.md). Use its incrementa
 
 ## Before you start
 
-Each student needs a GitHub account, Git, an editor, and Docker Desktop running with Docker Compose available. Use your own account for commits, PRs, and reviews. Configure your Git name and an email associated with your GitHub account. Run these locally, replacing the example values:
+Setup your github:
 
 ```sh
 git config --global user.name "YOUR NAME"
 git config --global user.email "YOUR GITHUB EMAIL"
-git --version
-docker compose version
 ```
 
 
