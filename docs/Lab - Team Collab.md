@@ -28,8 +28,8 @@ Keep the role labels A/B/C and the supplied filenames and branch names unchanged
 | 6. Conflict preparation | All features merged; all agree on same main SHA; B/C create competing branches | A must wait until **both branches/PRs exist** |
 | 7. Conflict resolution | A reviews/merges B's conflict PR first | C waits for that merge, then fetches main, captures actual conflict, resolves and pushes |
 | 8. Resolution review | B reviews/merges C's repaired PR after green checks | All wait for resolution merge before final Docker verification |
-| 9. Verification | Each pulls main, runs full checks and live Docker demonstration | Instructor checks the running app and individual understanding |
-| 10. Submission | Each student sends a short Teams message | Name/GitHub, repository, feature PR, review link, and 1–2 contribution sentences |
+| 9. Verification | Each pulls main and runs full local/Docker checks | Each posts a brief result comment on their own feature PR |
+| 10. Submission | Each completes their final PR comment; instructor has repository access | Grading uses commits, PRs, reviews, Actions, and comments in the team repository only |
 
 Keep your teammates informed at each handoff using your team's normal communication channel or PR/issue discussion. A “WAIT FOR” step in your guide is a required dependency, not permission to skip the later task. While waiting, complete independent setup, review available work, or inspect available PRs.
 
@@ -46,10 +46,10 @@ Expected integrated checks with the supplied code: **18 backend tests, 5 fronten
 
 ## Deliverables
 
-One team repository, three feature PRs with substantive reviews, a PR-triggered Compose workflow, visible failed/repaired runs on A's PR, two competing conflict PRs with an actual conflict capture and resolution, and live final Docker demonstrations.
+One team repository, three feature PRs with substantive reviews, a PR-triggered Compose workflow, visible failed/repaired runs on A's PR, two competing conflict PRs with an actual conflict capture and resolution, and brief individual final-verification comments in the feature PRs.
 
-Each student sends a short Teams message with their name/GitHub username, repository URL, feature PR URL, review URL, and 1–2 sentences about their contribution. No separate evidence files or evidence PRs are required.
+Each student posts one short final comment on their own feature PR: tested main SHA, final green Actions link, actual local test and Docker/browser results, 1–2 contribution sentences, and their review link. The member guides provide the template. No separate evidence files or evidence PRs are required.
 
 Shared proof stays in the existing PRs: A posts the failed/passing run links in A's feature PR; C posts one actual conflict capture in C's conflict PR. Each student's required short review/CI/conflict comments remain there too. Do not duplicate screenshots, logs, or commit SHAs in a report.
 
-The instructor grades directly from the repository and each student's live demonstration. Make sure instructor `chakirouAlabani` has repository access.
+All /10 marks are assessed from the team repository only. There is no in-class demonstration, video, or recording. Students still perform the final local Docker checks and report their actual results briefly in their PRs. Make sure instructor `chakirouAlabani` has repository access; send the repository link on Teams if needed.
