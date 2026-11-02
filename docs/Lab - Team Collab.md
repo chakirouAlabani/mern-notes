@@ -48,7 +48,7 @@ Replace only explicit uppercase placeholders in setup, PR descriptions, and evid
    ```
 
    Check staged files before committing. Do not include `.env`, passwords, `node_modules`, or generated build files. A ZIP download has no original Git history; do not copy a different project's `.git` folder.
-4. The owner opens **Settings → Collaborators → Add people** and invites both teammates. Both accept. Invite **chakirouAlabani** with Write access for grading and send the shared repository link to the instructor on Teams.
+4. The owner opens **Settings → Collaborators → Add people** and invites both teammates. Both accept. Invite **chakirouAlabani** for grading and send the shared repository link on Teams.
 5. The other two teammates clone the **new team repository**, not the instructor's repository. Replace OWNER and TEAM-REPOSITORY, then run:
 
 ```sh
