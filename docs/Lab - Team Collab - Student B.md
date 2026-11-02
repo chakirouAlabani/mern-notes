@@ -88,7 +88,7 @@ docker compose -f compose.test.yaml down --volumes
 
 Expected baseline: **5 backend tests, 2 frontend tests**, successful lint and type checking. The Compose test configuration supplies a temporary MongoDB named `mern_notes_test`; you do not need database secrets. Do not redirect the tests to your application database: the API suite deletes collections.
 
-**Checkpoint evidence:** record your own baseline results. If something fails, inspect the first failure and fix your setup before adding features. Rebuild test images after code/test edits: these images contain copied source.
+**Expected:** the starter checks pass. No written baseline report is required. If something fails, inspect the first failure and fix your setup before adding features. Rebuild test images after code/test edits: these images contain copied source.
 
 ## Checkpoint 3 — Review A's PR workflow
 
@@ -208,7 +208,7 @@ Open A's **failed** run, not a previous green run. Inspect **Backend API tests**
 - Deliberately wrong expected response: `{ status: "broken" }`.
 - The assertion makes the job red, so the PR must remain unmerged.
 
-Link the failing run and commit. Tell A your diagnosis is posted. **WAIT FOR A:** after A restores the expectation, inspect the new green run and save its URL/SHA too. C checks cleanup and performs the final feature review/merge; do not merge A yourself.
+Use A's linked failing run. Tell A your diagnosis is posted. **WAIT FOR A:** after A restores the expectation, inspect the new green run and confirm it passes. A keeps the shared run links in the same PR. C checks cleanup and performs the final feature review/merge; do not merge A yourself.
 
 ## Checkpoint 6 — Create the first competing heading and review C's resolution
 
@@ -261,11 +261,11 @@ Then:
 2. Verify the final component heading is **Your team's notes, organized**, the test expects the identical text, and signup/login paragraphs remain intact.
 3. Confirm the latest workflow is green (18 backend / 5 frontend tests, lint, typecheck). Leave a specific comment explaining how the resolution combines both edits.
 4. Approve and merge C's PR using **Create a merge commit**.
-5. Tell A and C final main is ready. Save both conflict PRs, base SHA, capture, resolution SHA, and your review. Explain why competing replacements of the same base line conflicted.
+5. Tell A and C final main is ready. In your review, briefly explain why the competing replacements conflicted. The PR history supplies the remaining details.
 
 ## Checkpoint 7 — Verify the final main in Docker
 
-Every student pulls the merged main and records the same final commit SHA:
+Every student pulls the merged main. Show its commit SHA during the live demonstration; no separate written record is required:
 
 ```sh
 git switch main
@@ -296,58 +296,26 @@ Do not use `--volumes` on the application stack during the persistence check: it
 
 **Final checkpoint:** call the instructor for a live demonstration before stopping the app. Each student must explain their code/test, their review, and one collaboration event. Show the final main SHA, green checks, containers, and working app. Then use `docker compose down` to stop the application.
 
-## Submit your individual evidence
+## Submit — Short individual message
 
-**WAIT FOR:** C's conflict-resolution PR must be merged and final main checks must pass. Create your own evidence file so each student's contribution is attributable and separate.
+After the final Docker demonstration, send this short message on Teams. Replace the placeholders:
 
-```sh
-git switch main
-git pull --ff-only origin main
-git switch -c b/evidence
+```text
+Name / GitHub: YOUR NAME / @USERNAME
+Team repository: URL
+My feature PR: URL
+My review of a teammate: URL
+My contribution: 1–2 sentences about what I changed and learned.
 ```
 
-Create `docs/team-collab-evidence-B.md`. Copy this template and replace every placeholder with actual results and links:
+No separate evidence document, evidence branch, or evidence PR is required. Your instructor grades the code, commits, reviews, Actions history, and conflict discussion directly in the team repository, plus your live demonstration.
 
-```md
-# Student B — Team collaboration evidence
-
-- Name / GitHub username: NAME / USERNAME
-- My guide-confirmation commit / feature PR: SHA / URL
-- Team repository and roster A/B/C: URL_AND_NAMES
-- Accepted collaborator / instructor access: DETAILS
-- Main protection or manual-enforcement limitation: DETAILS
-- Local baseline results: RESULTS
-- My task issue / feature PR / code and test commits: URLS
-- What my supplied code and tests do: MY_EXPLANATION
-- My review of a teammate's feature: REVIEW_URL_AND_WHAT_I_CHECKED
-- Workflow PR / green run and my role: URLS_AND_EXPLANATION
-- Failed run / failing commit: URL / SHA
-- Repaired run / repaired commit: URL / SHA
-- My red-to-green contribution and explanation: DETAILS
-- Conflict issue / common base SHA / both PRs: URLS_AND_SHA
-- Actual conflict capture / resolution commit / green run: LINKS_AND_SHA
-- My conflict contribution and explanation: DETAILS
-- Final verified application SHA: SHA
-- Final local backend/frontend totals, lint, typecheck: RESULTS
-- Final Docker / keyboard / CRUD / isolation / persistence checks: RESULTS
-- Live demonstration: DATE_AND_RESULT
-```
-
-Then run:
-```sh
-git add docs/team-collab-evidence-B.md
-git commit -m "docs: record Student B lab evidence"
-git push -u origin b/evidence
-```
-
-Open a PR against main. Request A to review and merge after green checks. Review the evidence PR assigned to you too. Each student submits the repository link and their own evidence-file link on Teams.
-
-**WAIT FOR ALL THREE EVIDENCE PRs:** after they merge, pull main again and submit the final main SHA plus green push-run URL on Teams. No extra commit is needed just to insert a commit's own SHA. If code, tests, or workflow changed since your Docker verification, repeat the checks on the final revision.
+Keep shared proof in its original location only: A links the failed and passing runs in A's feature PR; C adds one actual conflict capture to C's conflict PR. Teammates add their required short comments there. You do not need to duplicate screenshots, commit SHAs, logs, or explanations in another report.
 
 ### Open, review, and merge each PR on GitHub
 
 1. Open the **team repository → Pull requests → New pull request**.
-2. Select **base: main** and **compare: your branch**. Inspect **Files changed**; your feature PR should contain your assigned code/tests and your own guide confirmation. The initial workflow PR contains the workflow YAML. Later conflict/evidence PRs contain only their stated files.
+2. Select **base: main** and **compare: your branch**. Inspect **Files changed**; your feature PR should contain your assigned code/tests and your own guide confirmation. The initial workflow PR contains the workflow YAML. Later conflict PRs contain only their stated files.
 3. Choose **Create pull request**. Use your commit message as its title. Copy this body, replacing the capitalized placeholders:
 
 ```md
@@ -364,7 +332,7 @@ ONE_SPECIFIC_THING_FOR_THE_REVIEWER_TO_CHECK
 ```
 
 
-4. Under **Reviewers**, request A for your feature PR. In **Checks**, open **Team collaboration checks → tests** and inspect individual steps. Save the run URL.
+4. Under **Reviewers**, request A for your feature PR. In **Checks**, open **Team collaboration checks → tests** and inspect individual steps. The run stays attached to the PR; no separate copy is needed.
 5. Reviewer: open **Files changed**, select a line's **+** button, and leave a specific comment explaining a checked behavior or a needed correction. Use **Review changes → Request changes** for a required fix. Do not copy a review claim without checking it.
 6. Author: make requested edits on the same branch, rebuild/retest, commit the changed files, and `git push`. The existing PR updates automatically. Reply to the review with what changed.
 7. Reviewer: inspect the latest revision and results, resolve addressed discussions, and use **Review changes → Approve**.
@@ -375,7 +343,7 @@ ONE_SPECIFIC_THING_FOR_THE_REVIEWER_TO_CHECK
 
 ## Individual grading — /10 per student
 
-Team membership alone does not earn credit. The instructor grades each student using their own GitHub activity, evidence document, and demonstration. Shared artifacts count only when your contribution is identifiable.
+Team membership alone does not earn credit. The instructor grades each student using their own GitHub activity, short submission, and demonstration. Shared artifacts count only when your contribution is identifiable.
 
 | Criterion | Points | Individually observable evidence |
 | --- | ---: | --- |
@@ -384,7 +352,7 @@ Team membership alone does not earn credit. The instructor grades each student u
 | Meaningful automated tests | 2 | Authored tests cover required cases, pass in Compose/CI, and would catch a regression |
 | Review and integration | 2 | Substantive review of a teammate's PR, verified fixes/approval, and compliant merge participation |
 | CI failure and conflict understanding | 2 | 1 point: named red/green contribution and explanation; 1 point: named real-conflict contribution and explanation |
-| Final Docker verification and evidence | 1 | Own final-main checks, working live demonstration, complete traceable evidence |
+| Final Docker verification and submission | 1 | Own final-main checks, working live demonstration, short submission with working PR links |
 | **Total** | **10** | **Assessed separately for A, B, and C** |
 
 Partial credit follows demonstrated completion within each criterion. Missing or unattributable work earns no credit for that part. A teammate's successful implementation cannot replace your own code, tests, review, or explanation.
