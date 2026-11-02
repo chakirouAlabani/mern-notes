@@ -35,7 +35,7 @@ Replace only explicit uppercase placeholders in setup, PR descriptions, and evid
 ## Checkpoint 1 — Create the shared team repository
 
 1. Open [chakirouAlabani/mern-notes](https://github.com/chakirouAlabani/mern-notes), select **Code → Download ZIP**, and extract it.
-2. One teammate creates a **new empty repository**, for example `420-530-team-03-notes`. **Do not fork** and do not initialize the remote with a README, licence, or .gitignore. Choose visibility according to your instructor's directions.
+2. One teammate creates a **new empty repository**, for example `420-530-team-03-notes`. **Do not fork** and do not initialize the remote with a README, licence, or .gitignore. Visibility should be public.
 3. In the extracted project root (the folder containing `compose.yaml`), initialize and upload the starter. Replace the uppercase placeholders:
 
    ```sh
