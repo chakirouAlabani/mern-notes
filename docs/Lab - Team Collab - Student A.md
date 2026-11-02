@@ -8,7 +8,7 @@
 
 Follow the checkpoints in order, and perform review/handoff requests as soon as a teammate is ready—even if their request appears later in this guide. Do not make everyone wait until you finish your own feature before reviewing theirs. This guide includes your supplied code, tests, reviews, dependencies, and final verification. Other members use [Student B](Lab%20-%20Team%20Collab%20-%20Student%20B.md) and [Student C](Lab%20-%20Team%20Collab%20-%20Student%20C.md). See the [team overview](Lab%20-%20Team%20Collab.md) for the complete handoff order.
 
-Use your own GitHub account. Run commands locally from your project root, except workflow YAML which runs on GitHub. Replace explicit uppercase placeholders only. Copy supplied code into the exact stated locations; understand it and be ready to explain it. No GHCR publication or online deployment is required.
+Use your own GitHub account. Run commands locally from your project root, except workflow YAML which runs on GitHub. Replace explicit uppercase placeholders only. Copy supplied code into the exact stated locations; understand it and briefly explain your code/tests in your PR. No GHCR publication or online deployment is required.
 
 Before starting, agree who is A, B, and C. **A owns the new team repository.** Everyone must personally apply their assigned code and tests, review teammates, and verify Docker. Your grade depends on attributable activity and explanations, even though code is supplied.
 
@@ -30,7 +30,7 @@ git config --global user.email "YOUR GITHUB EMAIL"
 | Review B | B opens feature PR | B's feature is merged |
 | Coordinate conflict | All three features merged | Common SHA recorded; both branches created |
 | Merge B conflict | C confirms branch already exists | C may merge main into their branch |
-| Final verification | B merges C resolution | Final Docker demonstration ready |
+| Final verification | B merges C resolution | Final Docker checks ready |
 
 ## Checkpoint 1 — Create the shared team repository
 
@@ -394,7 +394,7 @@ Link the passing run alongside the failed run in this PR. Expected: 18 backend t
 
 ### Your review of B's feature
 
-**WAIT FOR B:** B sends the PR **Explain signup and login**. Read the component and its test. Check that the heading is “Your notes, together”, both navigation choices are explained, and sign-in is required to view notes. Use the review procedure at the end. Request fixes if needed; approve and merge only when green. Use this review link in your short Teams submission.
+**WAIT FOR B:** B sends the PR **Explain signup and login**. Read the component and its test. Check that the heading is “Your notes, together”, both navigation choices are explained, and sign-in is required to view notes. Use the review procedure at the end. Request fixes if needed; approve and merge only when green. Use this review link in your final PR comment.
 
 ## Checkpoint 6 — Coordinate and review the conflict
 
@@ -422,7 +422,7 @@ Create the issue **Planned login guidance conflict** and record the common base 
 
 ## Checkpoint 7 — Verify the final main in Docker
 
-Every student pulls the merged main. Show its commit SHA during the live demonstration; no separate written record is required:
+Every student pulls the merged main. Use its commit SHA in your final PR comment:
 
 ```sh
 git switch main
@@ -444,30 +444,33 @@ Use root .env with your local session secret. Confirm all checks pass on final m
 
 - The combined logged-out heading and Sign Up / Log In guidance.
 - Signup, logout, login, and note creation/editing/deletion.
-- Title trimming; demonstrate whitespace-only rejection through an API test if browser validation prevents submitting it.
+- Title trimming; verify whitespace-only rejection through an API test if browser validation prevents submitting it.
 - Keyboard focus and Enter/Space deletion; deleting must not also open the edit dialog.
 - Account isolation: another signed-in account cannot see the first account's notes.
 - Persistence: create a note to keep, run `docker compose down`, restart with `docker compose up -d --wait`, sign in again, and confirm that note remains.
 
 Do not use `--volumes` on the application stack during the persistence check: it deletes saved application data. The earlier cleanup commands explicitly target the separate test stack.
 
-**Final checkpoint:** call the instructor for a live demonstration before stopping the app. Each student must explain their code/test, their review, and one collaboration event. Show the final main SHA, green checks, containers, and working app. Then use `docker compose down` to stop the application.
-
-## Submit — Short individual message
-
-After the final Docker demonstration, send this short message on Teams. Replace the placeholders:
+**Finish in GitHub:** add one short comment to your own feature PR (it may already be merged). Use the template below after completing the local checks, and replace every placeholder with your actual results:
 
 ```text
-Name / GitHub: YOUR NAME / @USERNAME
-Team repository: URL
-My feature PR: URL
+Final main commit: SHA
+Final main Actions run: URL
+Local checks: backend __ passed; frontend __ passed; lint/typecheck PASS or FAIL
+Docker/browser checks: startup, CRUD, keyboard deletion, account isolation, persistence — PASS or list failures
+My contribution: 1–2 sentences explaining my code/tests and what I verified.
 My review of a teammate: URL
-My contribution: 1–2 sentences about what I changed and learned.
 ```
 
-No separate evidence document, evidence branch, or evidence PR is required. Your instructor grades the code, commits, reviews, Actions history, and conflict discussion directly in the team repository, plus your live demonstration.
+Report failures honestly and fix them before finishing. Each student posts their own comment from their own GitHub account. No video, recording, screenshots of the app, or separate evidence report is required. After checking persistence, stop the app with `docker compose down`.
 
-Keep shared proof in its original location only: A links the failed and passing runs in A's feature PR; C adds one actual conflict capture to C's conflict PR. Teammates add their required short comments there. You do not need to duplicate screenshots, commit SHAs, logs, or explanations in another report.
+
+
+## Submit — Repository only
+
+Your final PR comment above is your submission. Make sure your name/GitHub username is filled in at the top of your guide and instructor `chakirouAlabani` can access the team repository. Send the repository link on Teams if the instructor does not already have it; grading uses the repository only.
+
+A keeps the failed/passing run links in A's feature PR. C keeps the actual merge-conflict capture in C's conflict PR. Your short review/CI/conflict comments stay where the work happened. Do not duplicate them in a report.
 
 ### Open, review, and merge each PR on GitHub
 
@@ -500,16 +503,16 @@ ONE_SPECIFIC_THING_FOR_THE_REVIEWER_TO_CHECK
 
 ## Individual grading — /10 per student
 
-Team membership alone does not earn credit. The instructor grades each student using their own GitHub activity, short submission, and demonstration. Shared artifacts count only when your contribution is identifiable.
+Team membership alone does not earn credit. The instructor grades each student entirely from the team repository: their commits, PRs, tests, reviews, Actions runs, and brief PR comments. Shared artifacts count only when your contribution is identifiable.
 
 | Criterion | Points | Individually observable evidence |
 | --- | ---: | --- |
 | Shared repository and branch discipline | 1 | Own account, accepted access, own named branches; changes reach main through PRs |
-| Assigned application change | 2 | Authored code meets the assigned acceptance criteria; student explains behavior and implementation |
+| Assigned application change | 2 | Own code meets the acceptance criteria; brief explanation of behavior and implementation in the PR |
 | Meaningful automated tests | 2 | Authored tests cover required cases, pass in Compose/CI, and would catch a regression |
 | Review and integration | 2 | Substantive review of a teammate's PR, verified fixes/approval, and compliant merge participation |
 | CI failure and conflict understanding | 2 | 1 point: named red/green contribution and explanation; 1 point: named real-conflict contribution and explanation |
-| Final Docker verification and submission | 1 | Own final-main checks, working live demonstration, short submission with working PR links |
+| Final integration and verification | 1 | Green final-main Actions run plus own brief PR comment identifying the tested SHA and actual local Docker/browser results |
 | **Total** | **10** | **Assessed separately for A, B, and C** |
 
 Partial credit follows demonstrated completion within each criterion. Missing or unattributable work earns no credit for that part. A teammate's successful implementation cannot replace your own code, tests, review, or explanation.
