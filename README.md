@@ -2,13 +2,13 @@
 
 **420-530-LE · Teams of three · Individual grade /10**
 
-**Goal:** contribute one small change through **branch → commit → push → PR → review → merge**. Everyone follows this page. Your instructor provides the tests and workflow.
+**Goal:** contribute one small change through **branch → commit → push → PR → review → merge**. Everyone follows this page. The starter includes the tests and workflow.
 
 ## Before the timed hour
 
-Your team repository must already exist, contain this starter on main, and have all three students plus instructor `chakirouAlabani` as collaborators. Each student has their own clone and working GitHub authentication. Docker Desktop, the baseline app, test images, and the seven starter tests must work on each laptop. Preparation instructions are in the [instructor checklist](docs/Instructor%20-%20One%20Hour%20Collab.md).
+Your team repository must already exist, contain this starter on main, and have all three team members as collaborators. Each student has their own clone and working GitHub authentication. Docker Desktop, the baseline app, test images, and the seven starter tests must work on each laptop. Complete the [team setup checklist](docs/Setup%20-%20Team%20Collab.md) before starting the hour.
 
-Use the **team repository**, not the instructor's source repository. In your clone, `git remote -v` must show your team URL. Keep your local `.env` out of Git. Each person uses their own GitHub account and Git name/email.
+Use the **team repository**, not the provided source repository. In your clone, `git remote -v` must show your team URL. Keep your local `.env` out of Git. Each person uses their own GitHub account and Git name/email.
 
 ## 0–10 minutes — Read the cycle and choose your task
 
@@ -46,7 +46,7 @@ git pull --ff-only origin main
 git status
 ```
 
-Expected: clean working tree. If you have unrelated changes, ask your instructor before proceeding.
+Expected: clean working tree. If you have unrelated changes, resolve them or get help before proceeding.
 
 Run **only your own branch command from the assignment table above**. Expected: Git says it switched to your new branch. Do not create your teammates' branches.
 
@@ -158,7 +158,7 @@ Merge in this order:
 2. A merges B's empty-notes PR.
 3. B merges C's privacy PR.
 
-Tell the next reviewer when your merge is done. Do not push directly to main. If GitHub requires the branch to be updated, use **Update branch**, wait for the new checks, and review again. If a conflict appears, stop and ask your instructor; the supplied tasks are designed to merge cleanly.
+Tell the next reviewer when your merge is done. Do not push directly to main. If GitHub requires the branch to be updated, use **Update branch**, wait for the new checks, and review again. If a conflict appears, pause and get help before continuing; the supplied tasks are designed to merge cleanly.
 
 ## 40–50 minutes — Check final main
 
@@ -185,11 +185,11 @@ My review of a teammate: URL
 Local app: all three messages and note create/edit/delete PASS (or describe the problem)
 ```
 
-Then stop the app with `docker compose down`. No live demonstration, separate report, screenshots, or new evidence PR is required. Grading uses the team repository only.
+Then stop the app with `docker compose down`. No separate report, screenshots, or new evidence PR is required. Grading uses the team repository only.
 
 ## 50–60 minutes — Finish and resolve problems
 
-Use this buffer to fix failed checks, missing reviews, or app problems. Send the instructor the team repository link if they do not already have it.
+Use this buffer to fix failed checks, missing reviews, or app problems. Share the team repository link according to the submission instructions.
 
 | Problem | What to do |
 | --- | --- |
