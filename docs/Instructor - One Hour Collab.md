@@ -31,11 +31,13 @@ docker compose up --build -d --wait
 ```
 Expected: 5 backend / 2 frontend tests, no lint/typecheck errors, healthy app at localhost:3000. Test signup and one note. First-time downloads/builds are preparation time and may exceed the class budget.
 
-## Ten-minute demonstration
+## First ten minutes — Independent guided start
 
-Use a disposable practice repository or a separate demo file, not a student's assigned file. Show branch, one edit, commit, push, PR base main, Files changed, and running checks. Use a colleague's account to review and merge. Prepare the demo PR/check run ahead of class in case an image build is slow. Never pretend one account is an independent reviewer.
+Students begin directly with the README. Its first section explains branch, commit, push, PR, review, and merge with an expected result for each. No instructor demonstration or second demonstration account is needed.
 
-Explain: a branch isolates a change; a PR proposes it; checks run existing tests; the reviewer reads the diff; the reviewer merges after approval and green checks.
+Ask teams to assign A/B/C and identify their file, branch command, and reviewer. Students open their assigned file and confirm they see the starting code. Be available for setup questions; then students follow the numbered instructions independently.
+
+The independent-account checklist later in this document is optional preparation for you to rehearse before class, not a classroom demonstration or student grading requirement.
 
 ## Facilitation and timing
 
