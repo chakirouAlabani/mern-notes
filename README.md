@@ -10,15 +10,28 @@ Your team repository must already exist, contain this starter on main, and have 
 
 Use the **team repository**, not the instructor's source repository. In your clone, `git remote -v` must show your team URL. Keep your local `.env` out of Git. Each person uses their own GitHub account and Git name/email.
 
-## 0–10 minutes — Watch the example and choose a task
+## 0–10 minutes — Read the cycle and choose your task
 
-Watch your instructor demonstrate the complete PR cycle. Then assign A, B, C:
+Start directly from this guide. Read the cycle below, then assign A, B, C:
+
+| Step | Meaning | You should see |
+| --- | --- | --- |
+| Branch | Give your change its own workspace in Git | Your branch name after `git switch -c` |
+| Commit | Save the changed file in Git history | A commit message and short identifier |
+| Push | Upload your branch to the team repository | Your branch appears on GitHub |
+| Pull request (PR) | Propose merging your branch into main | A PR with base main and your file diff |
+| Review | A teammate checks the change | A specific review comment and approval |
+| Merge | The reviewer brings the approved change into main | The PR displays Merged |
+
+Choose your task:
 
 | Student | Application change | Branch command (run only yours) | Reviewer who also merges |
 | --- | --- | --- | --- |
 | A | Logged-out welcome | `git switch -c a/welcome` | C |
 | B | Empty-notes guidance | `git switch -c b/empty-notes` | A |
 | C | Privacy-page guidance | `git switch -c c/privacy` | B |
+
+Before continuing, tell your teammates your assigned file, branch command, and reviewer. Open your assigned file in your editor; make sure it contains the original code shown in step 2. If any setup requirement above is missing, ask for help now.
 
 A reviews B, B reviews C, C reviews A. Review as soon as the teammate's PR is ready; do not wait to finish your own work. Each person changes **one different file**. Do not edit this README or a teammate's file.
 
@@ -123,6 +136,7 @@ Expected: 5 backend and 2 frontend tests, successful lint/typecheck, successful 
 ### 4. Review a teammate's PR
 
 Open the PR assigned to you in the table, then **Files changed**. Check:
+
 - Only their assigned file changed.
 - The supplied text is present and the surrounding code is preserved.
 - No credentials, .env, or unrelated files were committed.
@@ -139,6 +153,7 @@ When satisfied, choose **Review changes → Approve**. An author cannot approve 
 **WAIT FOR green checks and approval.** The reviewer selects **Merge pull request → Create a merge commit → Confirm merge**.
 
 Merge in this order:
+
 1. C merges A's welcome PR.
 2. A merges B's empty-notes PR.
 3. B merges C's privacy PR.
@@ -157,6 +172,7 @@ docker compose ps
 ```
 
 Open http://localhost:3000 and check:
+
 - Logged out: **Welcome to Team Notes** and the signup/login guidance.
 - Signed in with no notes: the new empty-notes guidance. Use a new test account if your account already has notes.
 - At http://localhost:3000/privacy: **Your notes and privacy** and the shared-computer guidance.
