@@ -12,8 +12,8 @@ async function call(path, method = 'GET', body, expected = 200) {
   return response.status === 204 ? null : response.json();
 }
 (async () => {
-  assert.equal((await fetch(base)).status, 200);
-  assert.equal((await fetch(base + '/privacy')).status, 200);
+  assert.equal((await fetch(base, { headers: { Accept: 'text/html' } })).status, 200);
+  assert.equal((await fetch(base + '/privacy', { headers: { Accept: 'text/html' } })).status, 200);
   assert.deepEqual(await call('/api/health'), { status: 'ok' });
   const suffix = Date.now().toString();
   await call('/api/users/signup', 'POST', {
