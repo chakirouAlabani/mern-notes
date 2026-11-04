@@ -51,8 +51,19 @@ The 60-minute budget is a teaching target, not a measured novice completion time
 
 Use the /10 rubric in README. Inspect each person's commit author, file diff, PR base/checks, substantive review, merge event, and final comment. No live grading or report is required. A student who only comments but does not contribute code/review/merge has not completed the cycle.
 
-## Human rehearsal still required
+## Human rehearsal — instructor will complete later
 
-Use at least two independent accounts (three for the exact team rotation). In a practice team repository confirm invitation acceptance, reviewer selection, approval, the main rule, and reviewer merge rights. Rehearse the student's exact commands with those identities and a stopwatch. Automated runs cannot establish independent human approval or the classroom duration.
+Use at least two independent accounts (three for the exact team rotation). You have chosen to complete this part later. In a disposable practice team repository:
+- [ ] Invite the second/third account; accept the invitations.
+- [ ] Clone using each person's own GitHub authentication and Git identity.
+- [ ] Follow the README for a supplied change and open a PR targeting main.
+- [ ] Confirm the other account can be selected as reviewer.
+- [ ] Leave a specific review comment and submit Approve from the other account.
+- [ ] Confirm the configured main rule blocks merging before its required conditions are met.
+- [ ] Merge from the reviewer account after green checks; pull main from the author account.
+- [ ] Check all three messages and note CRUD in a browser.
+- [ ] Time the human workflow separately from preflight and record whether it fits 60 minutes.
+
+No independent approval, permission enforcement, browser walkthrough, or novice completion time is claimed until these are checked. The automated run supplies the code/test/runtime evidence; this short checklist covers the remaining human interaction.
 
 Current automated results and any limits are recorded in the [rehearsal report](Rehearsal%20-%20One%20Hour%20Collab.md).

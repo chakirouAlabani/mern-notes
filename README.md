@@ -14,11 +14,11 @@ Use the **team repository**, not the instructor's source repository. In your clo
 
 Watch your instructor demonstrate the complete PR cycle. Then assign A, B, C:
 
-| Student | Application change | Branch | Reviewer who also merges |
+| Student | Application change | Branch command (run only yours) | Reviewer who also merges |
 | --- | --- | --- | --- |
-| A | Logged-out welcome | a/welcome | C |
-| B | Empty-notes guidance | b/empty-notes | A |
-| C | Privacy-page guidance | c/privacy | B |
+| A | Logged-out welcome | `git switch -c a/welcome` | C |
+| B | Empty-notes guidance | `git switch -c b/empty-notes` | A |
+| C | Privacy-page guidance | `git switch -c c/privacy` | B |
 
 A reviews B, B reviews C, C reviews A. Review as soon as the teammate's PR is ready; do not wait to finish your own work. Each person changes **one different file**. Do not edit this README or a teammate's file.
 
@@ -35,17 +35,7 @@ git status
 
 Expected: clean working tree. If you have unrelated changes, ask your instructor before proceeding.
 
-Run **only your own** branch command:
-```sh
-# A:
-git switch -c a/welcome
-# B:
-git switch -c b/empty-notes
-# C:
-git switch -c c/privacy
-```
-
-The comments label alternatives; do not run all three commands.
+Run **only your own branch command from the assignment table above**. Expected: Git says it switched to your new branch. Do not create your teammates' branches.
 
 ### 2. Copy your supplied change
 
