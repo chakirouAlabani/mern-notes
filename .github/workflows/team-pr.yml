@@ -23,6 +23,19 @@ jobs:
         run: docker compose -f compose.test.yaml run --rm backend-test npm run lint
       - name: Backend type checking
         run: docker compose -f compose.test.yaml run --rm backend-test npm run typecheck
+      - name: Build integrated frontend
+        run: docker compose -f compose.test.yaml run --rm frontend-test npm run build
+      - name: Start integrated application
+        env:
+          SESSION_SECRET: temporary-isolated-rehearsal-session-value
+        run: docker compose -p hour-rehearsal-app up --build -d --wait
+      - name: Verify live application through frontend proxy
+        run: docker compose -p hour-rehearsal-app exec -T frontend node rehearsal-live.cjs
+      - name: Cleanup application
+        if: always()
+        run: docker compose -p hour-rehearsal-app down --volumes
+        env:
+          SESSION_SECRET: temporary-isolated-rehearsal-session-value
       - name: Cleanup
         if: always()
         run: docker compose -f compose.test.yaml down --volumes
